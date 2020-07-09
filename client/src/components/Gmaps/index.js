@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withScriptjs } from "react-google-maps";
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import Directions from '../components/Directions';
+import Directions from './Directions';
 
 export class Gmaps extends Component {
 

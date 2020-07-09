@@ -5,6 +5,7 @@ class Home extends Component {
   render() {
     return (
       <Container>
+        <h1>Home Page</h1>
         <p>
           Put a form here.
         </p>

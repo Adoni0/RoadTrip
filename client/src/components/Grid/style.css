@@ -5,11 +5,11 @@
     margin: 0 auto;
     padding: 2rem 0;
     position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    align-content: flex-start;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: center;*/
+    /*align-items: flex-start;*/
+    /*align-content: flex-start;*/
 }
 
 .section {

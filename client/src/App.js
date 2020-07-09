@@ -1,14 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import Gmaps from './pages/Gmaps';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from './pages/Home';
+import TripPlan from './pages/TripPlan';
+import NoMatch from "./pages/NoMatch";
+
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Gmaps />
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/trip-plan" component={TripPlan} />
+            <Route component={NoMatch} />
+          </Switch>
+        </>
+      </Router>
+    )
+  }
 }
 
 export default App;
