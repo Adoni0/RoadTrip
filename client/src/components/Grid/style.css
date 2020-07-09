@@ -1,0 +1,29 @@
+.container {
+    width: calc(100% - 4rem);
+    max-width: 960px;
+
+    margin: 0 auto;
+    padding: 2rem 0;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.section {
+    width: 100%;
+    padding: 3rem;
+    background: var(--color-white);
+    border-radius: .5rem;
+    border: 1px solid var(--color-grey-light);
+}
+
+.section:not(:last-child) {
+    margin-bottom: 3rem;
+}
+
+.section.page-height {
+    min-height: calc(100vh - 10rem);
+}
