@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
-import { Input, FormBtn } from "../components/Form";
+import { Input, Select, FormBtn } from "../components/Form";
 
 
 class Home extends Component {
@@ -20,6 +20,18 @@ class Home extends Component {
   }
 
   render() {
+    const numOfStopsArr = [
+      {optionVal: 0, textVal: 0},
+      {optionVal: 1, textVal: 1},
+      {optionVal: 2, textVal: 2},
+      {optionVal: 3, textVal: 3},
+    ];
+    const budgetArr = [
+      {optionVal: 1, textVal: '$'},
+      {optionVal: 2, textVal: '$$'},
+      {optionVal: 3, textVal: '$$$'},
+    ];
+
     return (
       <Container>
         <h1>Home Page</h1>
@@ -28,6 +40,7 @@ class Home extends Component {
         </p>
         <form>
           <Input
+            id="tripName"
             value={this.state.tripName}
             onChange={this.handleInputChange}
             name="tripName"
@@ -35,6 +48,7 @@ class Home extends Component {
             placeholder="Enter your trip name."
           />
           <Input
+            id="origin"
             value={this.state.origin}
             onChange={this.handleInputChange}
             name="origin"
@@ -42,11 +56,28 @@ class Home extends Component {
             placeholder="Enter your starting point."
           />
           <Input
+            id="destination"
             value={this.state.destination}
             onChange={this.handleInputChange}
             name="destination"
             label="Where are you looking to go?"
             placeholder="Enter your destination."
+          />
+          <Select
+            id="numOfStops"
+            value={this.state.numOfStops}
+            onChange={this.handleInputChange}
+            name="numOfStops"
+            label="How many stops would you like to make?"
+            optionVals={numOfStopsArr}
+          />
+          <Select
+            id="budget"
+            value={this.state.budget}
+            onChange={this.handleInputChange}
+            name="budget"
+            label="Budget?"
+            optionVals={budgetArr}
           />
           <FormBtn
             disabled={!this.state.tripName}
