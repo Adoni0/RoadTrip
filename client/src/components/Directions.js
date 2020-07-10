@@ -6,6 +6,7 @@ import {
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
+import DistanceDisplay from '../components/DistanceDisplay';
 
 class Directions extends React.Component {
   state = {
@@ -56,6 +57,7 @@ class Directions extends React.Component {
           directions={this.state.directions}
         />
       </GoogleMap>
+      
     ));
 
     return (
@@ -64,6 +66,7 @@ class Directions extends React.Component {
           containerElement={<div style={{ height: `750px`, width: "75%" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+        <DistanceDisplay />
       </div>
     );
   }
