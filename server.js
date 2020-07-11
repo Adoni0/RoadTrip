@@ -15,14 +15,20 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI || {
-    useNewUrlParser: true
-});
+// mongoose.connect(process.env.MONGODB_URI || {
+//     useNewUrlParser: true
+// });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/roadtripdb");
 
 // // Send every other request to the React app
 // app.get("*", (req, res) => {
 //     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 // });
+
+//Capture All 404 errors
+app.use(function (req,res,next){
+    res.status(404).send('Unable to find the requested resource!');
+});
 
 app.listen(PORT, () => {
     console.log(`🌎 ==> API server now on port ${PORT}!`);

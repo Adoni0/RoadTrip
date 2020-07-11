@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import API from "../utils/API";
 import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
 
@@ -17,6 +18,22 @@ class Home extends Component {
     this.setState({
       [name]: value
     })
+  }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    API.saveTrip({
+      tripName: this.state.tripName,
+      origin: this.state.origin,
+      destination: this.state.destination,
+      numberOfStops: this.state.numOfStops,
+      budget: this.state.budget
+    })
+    .then(res => {
+      console.log('Trip saved!');
+      // this.getTrips();
+    })
+    .catch(err => console.log(err));
   }
 
   render() {
@@ -81,7 +98,7 @@ class Home extends Component {
           />
           <FormBtn
             disabled={!this.state.tripName}
-            // onClick={this.handleFormSubmit}
+            onClick={this.handleFormSubmit}
           >
             Submit
           </FormBtn>
