@@ -8,6 +8,6 @@ export default {
     return axios.get(`/api/trips/${tripId}`);
   },
   saveTrip: function(tripData) {
-    return axios.post('/api/trips', tripData)
+    return axios.post('/api/trips', tripData);
   }
 }
