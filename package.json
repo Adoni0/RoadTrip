@@ -24,7 +24,9 @@
   "homepage": "https://github.com/Adoni0/project-3#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "axios": "^0.19.2",
     "express": "^4.17.1",
+    "google-distance-matrix": "^1.1.1",
     "google-maps-react": "^2.0.6",
     "if-env": "^1.0.4",
     "mongoose": "^5.9.22",

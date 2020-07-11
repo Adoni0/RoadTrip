@@ -16,8 +16,6 @@ class Yelp extends React.Component {
         yelp("/businesses/9QFiF_YBCKvWsUu50G_yxg/reviews").then(({ data }) => {
             console.log(data)
         })
-
-        this.getYelpAPI();
     }
 
 }
