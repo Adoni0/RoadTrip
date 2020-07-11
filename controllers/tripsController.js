@@ -4,6 +4,7 @@ module.exports = {
   findAllTrips: function(req, res) {
     db.User
       .findById({ _id: req.params.id })
+      .populate('trips')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },
