@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Adoni0/project-3#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "google-distance-matrix": "^1.1.1",
