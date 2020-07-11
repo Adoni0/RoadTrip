@@ -29,24 +29,24 @@ class Home extends Component {
       numberOfStops: this.state.numOfStops,
       budget: this.state.budget
     })
-    .then(res => {
-      console.log('Trip saved!');
-      // this.getTrips();
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        console.log('Trip saved!');
+        // this.getTrips();
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     const numOfStopsArr = [
-      {optionVal: 0, textVal: 0},
-      {optionVal: 1, textVal: 1},
-      {optionVal: 2, textVal: 2},
-      {optionVal: 3, textVal: 3},
+      { optionVal: 0, textVal: 0 },
+      { optionVal: 1, textVal: 1 },
+      { optionVal: 2, textVal: 2 },
+      { optionVal: 3, textVal: 3 },
     ];
     const budgetArr = [
-      {optionVal: 1, textVal: '$'},
-      {optionVal: 2, textVal: '$$'},
-      {optionVal: 3, textVal: '$$$'},
+      { optionVal: 1, textVal: '$' },
+      { optionVal: 2, textVal: '$$' },
+      { optionVal: 3, textVal: '$$$' },
     ];
 
     return (
