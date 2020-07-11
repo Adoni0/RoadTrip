@@ -8,6 +8,7 @@ import {
 } from "react-google-maps";
 import DistanceDisplay from '../DistanceDisplay';
 import axios from 'axios';
+import API from '../../utils/API';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 
@@ -19,16 +20,7 @@ class Directions extends React.Component {
     destination: { lat: 32.7157, lng: -117.1611 }
   };
 
-  // getDistance() {
-  //   const origin = this.state.origin;
-  //   const destination = this.state.destination;
-  //   const travelMode = google.maps.TravelMode.DRIVING;
-
-  //   axios.post('/api/distance', { origin, destination, travelMode })
-  //     .then(res => res.data)
-  //     .then(data => this.props.setDist(data))
-  //     .catch(err => console.log('Unable to get distances: ' + err))
-  // }
+  
   findDistance = () => {
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix({
@@ -43,8 +35,7 @@ class Directions extends React.Component {
         alert('Error was: ' + status);
       } else {
         // console.log(response);
-        //response.rows[0].elements[0].distance.text
-        //response.rows[0].elements[0].duration.text
+        
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
 
@@ -54,8 +45,8 @@ class Directions extends React.Component {
             var element = results[j];
             var distance = element.distance.text;
             var duration = element.duration.text;
-            var from = origins[i];
-            var to = destinations[j];
+            // var from = origins[i];
+            // var to = destinations[j];
             console.log("Distance: " + distance);
             console.log("Duration: " + duration);
           }
@@ -69,6 +60,7 @@ class Directions extends React.Component {
 
 
       componentDidMount(){
+
         const directionsService = new google.maps.DirectionsService();
         const origin = this.state.origin;
         const destination = this.state.destination;
@@ -77,6 +69,14 @@ class Directions extends React.Component {
           {
             origin: origin,
             destination: destination,
+            waypoints: [
+              {
+                location: 'Santa Clarita, CA',
+                stopover: true
+              },{
+                location: 'Anaheim, CA',
+                stopover: true
+              }],
             travelMode: google.maps.TravelMode.DRIVING
           },
           (result, status) => {
