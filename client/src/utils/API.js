@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 export default {
-  getTrips: function(userId) {
+  getAllTrips: function(userId) {
     return axios.get(`/api/trips/${userId}`);
+  },
+  getTrip: function(tripId) {
+    return axios.get(`/api/trips/${tripId}`);
   },
   saveTrip: function(tripData) {
     return axios.post('/api/trips', tripData)

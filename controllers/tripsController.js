@@ -1,8 +1,14 @@
 const db = require('../models');
 
 module.exports = {
-  findAll: function(req, res) {
+  findAllTrips: function(req, res) {
     db.User
+      .findById({ _id: req.params.id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.json(err));
+  },
+  findTrip: function(req, res) {
+    db.Trip
       .findById({ _id: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
