@@ -4,22 +4,28 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema ({
-    username: {
-        type: String,
-        required: true
-      },
-      email:{
-        type: String,
-        required: true
-      },
-      password:{
-        type: String,
-        required: true
-      },
-      trips:{
-        type: Array,
-        required: false
+  username: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  // trips: {
+  //   type: Array,
+  //   required: false
+  // }
+  trips: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Trip"
     }
+  ]
 });
 
 // This creates our model from the above schema, using mongoose's model method

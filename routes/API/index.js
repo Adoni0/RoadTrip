@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const path = require("path");
-const socketio = require("./socketio");
-const googleRoutes = require("./googleMaps");
+// const googleRoutes = require("./googleMaps");
+const tripsRoutes = require("./trips");
 
 
-// router.use("/socket", socketio);
-router.use("/distance", googleRoutes);
+// Book routes
+router.use("/trips", tripsRoutes);
 
 router.use(function(req, res) {
     res.sendFile(path.join(__dirname, "../../client/build/index.html"));
