@@ -8,13 +8,23 @@ import NoMatch from "./pages/NoMatch";
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    userId: 1 // This Id is temp
+  }
+
   render() {
     return (
       <Router>
         <>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/trip-plan" component={TripPlan} />
+            <Route
+              exact
+              path="/"
+              render={props => <Home {...props} userId={this.state.userId} />}
+            />
+            <Route exact path="/trip-plans" component={TripPlan} />
+            <Route exact path="/trip-plans/:id" component={TripPlan} />
             <Route component={NoMatch} />
           </Switch>
         </>
