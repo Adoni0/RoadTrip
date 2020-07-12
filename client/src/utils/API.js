@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   getAllTrips: function(userId) {
-    return axios.get(`/api/trips/${userId}`);
+    return axios.get(`/api/users/${userId}`);
   },
   getTrip: function(tripId) {
     return axios.get(`/api/trips/${tripId}`);

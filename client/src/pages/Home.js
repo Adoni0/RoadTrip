@@ -10,7 +10,18 @@ class Home extends Component {
     origin: "",
     destination: "",
     numOfStops: 0,
-    budget: 1
+    budget: 1,
+    allTrips: []
+  }
+
+  componentDidMount() {
+    const userId = this.props.userId;
+    API.getAllTrips(userId)
+      .then(res => {
+        this.setState({ allTrips: res.data });
+        console.log(res.data);
+      })
+      .catch(err => console.log(err))
   }
 
   handleInputChange = event => {
@@ -27,7 +38,8 @@ class Home extends Component {
       origin: this.state.origin,
       destination: this.state.destination,
       numberOfStops: this.state.numOfStops,
-      budget: this.state.budget
+      budget: this.state.budget,
+      userId: this.props.userId
     })
       .then(res => {
         console.log('Trip saved!');

@@ -28,6 +28,10 @@ var TripSchema = new Schema ({
     max:3,
     required: true
   },
+  userId: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now

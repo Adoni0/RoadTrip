@@ -7,7 +7,6 @@ router.route('/')
 router.route('/:id')
   .get(tripsController.findTrip);
 
-// router.route('/:id')
-//   .get(tripsController.findAllTrips);
+
 
 module.exports = router;

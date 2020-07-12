@@ -10,7 +10,7 @@ import './App.css';
 class App extends Component {
 
   state = {
-    userId: 1 // This Id is temp
+    userId: '1' // This Id is temp
   }
 
   render() {

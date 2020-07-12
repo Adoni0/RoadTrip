@@ -14,7 +14,7 @@ mongoose.connect(
 
 const userSeed = [
   {
-    _id: 1,
+    _id: '1',
     username: 'User1',
     email: 'user1@email.com',
     password: 'test1234',
@@ -22,7 +22,7 @@ const userSeed = [
     date: new Date(Date.now())
   },
   {
-    _id: 2,
+    _id: '2',
     username: 'User2',
     email: 'user2@email.com',
     password: 'test1234',
@@ -30,7 +30,7 @@ const userSeed = [
     date: new Date(Date.now())
   },
   {
-    _id: 3,
+    _id: '3',
     username: 'User3',
     email: 'user3@email.com',
     password: 'test1234',
@@ -38,7 +38,7 @@ const userSeed = [
     date: new Date(Date.now())
   },
   {
-    _id: 4,
+    _id: '4',
     username: 'User4',
     email: 'user4@email.com',
     password: 'test1234',
@@ -46,7 +46,7 @@ const userSeed = [
     date: new Date(Date.now())
   },
   {
-    _id: 5,
+    _id: '5',
     username: 'User5',
     email: 'user5@email.com',
     password: 'test1234',
