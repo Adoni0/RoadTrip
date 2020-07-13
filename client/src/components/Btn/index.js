@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 
 // The ...props means, spread all of the passed props onto this element
@@ -23,9 +24,9 @@ export const SaveBtn = (props) => {
   );
 }
 
-export const ViewBtn = ({ tripId }) => {
+export const ViewBtn = ({ link }) => {
   return (
-    <a href='' className="btn btn-blue" target="_blank" rel="noopener">View</a>
+    <Link to={link} className="btn btn-blue">View</Link>
   )
 }
 

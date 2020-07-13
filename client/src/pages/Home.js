@@ -140,7 +140,7 @@ class Home extends Component {
                   <p>Destination: {trip.destination}</p>
                   <p>{trip._id}</p>
                   <div className="btns-container">
-                    <ViewBtn tripId={trip._id} />
+                    <ViewBtn link={`/trip-plans/${trip._id}`} />
                     <DeleteBtn deleteHandler={this.handleDelete(trip._id)} />
                   </div>
                 </ListItem>
