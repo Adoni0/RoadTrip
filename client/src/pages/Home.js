@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import API from "../utils/API";
 import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
+import {List, ListItem} from "../components/List";
 
 
 class Home extends Component {
@@ -18,8 +19,8 @@ class Home extends Component {
     const userId = this.props.userId;
     API.getAllTrips(userId)
       .then(res => {
-        this.setState({ allTrips: res.data });
         console.log(res.data);
+        this.setState({ allTrips: res.data.trips });
       })
       .catch(err => console.log(err))
   }
@@ -64,57 +65,73 @@ class Home extends Component {
     return (
       <Container>
         <h1>Home Page</h1>
-        <p>
-          Put a form here.
-        </p>
-        <form>
-          <Input
-            id="tripName"
-            value={this.state.tripName}
-            onChange={this.handleInputChange}
-            name="tripName"
-            label="Your Trip Name"
-            placeholder="Enter your trip name."
-          />
-          <Input
-            id="origin"
-            value={this.state.origin}
-            onChange={this.handleInputChange}
-            name="origin"
-            label="Where are you departing from?"
-            placeholder="Enter your starting point."
-          />
-          <Input
-            id="destination"
-            value={this.state.destination}
-            onChange={this.handleInputChange}
-            name="destination"
-            label="Where are you looking to go?"
-            placeholder="Enter your destination."
-          />
-          <Select
-            id="numOfStops"
-            value={this.state.numOfStops}
-            onChange={this.handleInputChange}
-            name="numOfStops"
-            label="How many stops would you like to make?"
-            optionVals={numOfStopsArr}
-          />
-          <Select
-            id="budget"
-            value={this.state.budget}
-            onChange={this.handleInputChange}
-            name="budget"
-            label="Budget?"
-            optionVals={budgetArr}
-          />
-          <FormBtn
-            disabled={!this.state.tripName}
-            onClick={this.handleFormSubmit}
-          >
-            Submit
-          </FormBtn>
-        </form>
+        <Section>
+          <h2>Fill out your road trip information!!</h2>
+          <form>
+            <Input
+              id="tripName"
+              value={this.state.tripName}
+              onChange={this.handleInputChange}
+              name="tripName"
+              label="Your Trip Name"
+              placeholder="Enter your trip name."
+            />
+            <Input
+              id="origin"
+              value={this.state.origin}
+              onChange={this.handleInputChange}
+              name="origin"
+              label="Where are you departing from?"
+              placeholder="Enter your starting point."
+            />
+            <Input
+              id="destination"
+              value={this.state.destination}
+              onChange={this.handleInputChange}
+              name="destination"
+              label="Where are you looking to go?"
+              placeholder="Enter your destination."
+            />
+            <Select
+              id="numOfStops"
+              value={this.state.numOfStops}
+              onChange={this.handleInputChange}
+              name="numOfStops"
+              label="How many stops would you like to make?"
+              optionVals={numOfStopsArr}
+            />
+            <Select
+              id="budget"
+              value={this.state.budget}
+              onChange={this.handleInputChange}
+              name="budget"
+              label="Budget?"
+              optionVals={budgetArr}
+            />
+            <FormBtn
+              disabled={!this.state.tripName}
+              onClick={this.handleFormSubmit}
+            >
+              Submit
+            </FormBtn>
+          </form>
+        </Section>
+        <Section>
+          <h2>Your Road Trip Plans List</h2>
+          {this.state.allTrips.length ? (
+            <List>
+              {this.state.allTrips.map(trip => (
+                <ListItem key={`tripID-${trip._id}`}>
+                  <p>{trip.tripName}</p>
+                  <p>Destination: {trip.destination}</p>
+                  <p>{trip._id}</p>
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <p className="message">There is no saved trip plans.</p>
+          )}
+        </Section>
       </Container>
     );
   }
