@@ -9,5 +9,8 @@ export default {
   },
   saveTrip: function(tripData) {
     return axios.post('/api/trips', tripData);
+  },
+  deleteTrip: function(tripId) {
+    return axios.delete(`/api/trips/${tripId}`)
   }
 }

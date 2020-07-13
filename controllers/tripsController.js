@@ -32,5 +32,12 @@ module.exports = {
       // If we were able to successfully update a User, send it back to the client
       .then(dbUser => req.json(dbUser))
       .catch(err => res.json(err));
+  },
+  remove: function(req, res) {
+    db.Trip
+      .findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.json(err))
   }
 }
