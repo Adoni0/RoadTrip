@@ -4,6 +4,7 @@ import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { DeleteBtn, ViewBtn } from "../components/Btn";
+import TripsList from "../components/TripsList";
 import "../components/List/style.css"
 
 class Home extends Component {
@@ -12,22 +13,11 @@ class Home extends Component {
     origin: "",
     destination: "",
     numOfStops: 0,
-    budget: 1,
-    allTrips: []
+    budget: 1
   }
 
   componentDidMount() {
-    this.loadTrips();
-  }
-
-  loadTrips = () => {
-    const userId = this.props.userId;
-    API.getAllTrips(userId)
-      .then(res => {
-        console.log(res.data);
-        this.setState({ allTrips: res.data.trips });
-      })
-      .catch(err => console.log(err))
+    this.props.loadTrips();
   }
 
   handleInputChange = event => {
@@ -52,14 +42,6 @@ class Home extends Component {
         // this.getTrips();
       })
       .catch(err => console.log(err));
-  }
-
-  handleDelete = id => {
-    return () => {
-      API.deleteTrip(id)
-        .then(res => this.loadTrips())
-        .catch(err => console.log(err));
-    }
   }
 
   render() {
@@ -132,23 +114,10 @@ class Home extends Component {
 
         <Section>
           <h2>Your Road Trip Plans List</h2>
-          {this.state.allTrips.length ? (
-            <List>
-              {this.state.allTrips.map(trip => (
-                <ListItem key={`tripID-${trip._id}`}>
-                  <p>{trip.tripName}</p>
-                  <p>Destination: {trip.destination}</p>
-                  <p>{trip._id}</p>
-                  <div className="btns-container">
-                    <ViewBtn link={`/trip-plans/${trip._id}`} />
-                    <DeleteBtn deleteHandler={this.handleDelete(trip._id)} />
-                  </div>
-                </ListItem>
-              ))}
-            </List>
-          ) : (
-            <p className="message">There is no saved trip plans.</p>
-          )}
+          <TripsList
+            allTrips={this.props.allTrips}
+            loadTrips={this.props.loadTrips}
+          />
         </Section>
       </Container>
     );
