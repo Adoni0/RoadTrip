@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import API from "../utils/API";
 import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
-import {List, ListItem} from "../components/List";
-
+import { List, ListItem } from "../components/List";
+import { DeleteBtn, ViewBtn } from "../components/Btn";
+import "../components/List/style.css"
 
 class Home extends Component {
   state = {
@@ -16,6 +17,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    this.loadTrips();
+  }
+
+  loadTrips = () => {
     const userId = this.props.userId;
     API.getAllTrips(userId)
       .then(res => {
@@ -47,6 +52,14 @@ class Home extends Component {
         // this.getTrips();
       })
       .catch(err => console.log(err));
+  }
+
+  handleDelete = id => {
+    return () => {
+      API.deleteTrip(id)
+        .then(res => this.loadTrips())
+        .catch(err => console.log(err));
+    }
   }
 
   render() {
@@ -116,6 +129,7 @@ class Home extends Component {
             </FormBtn>
           </form>
         </Section>
+
         <Section>
           <h2>Your Road Trip Plans List</h2>
           {this.state.allTrips.length ? (
@@ -125,6 +139,10 @@ class Home extends Component {
                   <p>{trip.tripName}</p>
                   <p>Destination: {trip.destination}</p>
                   <p>{trip._id}</p>
+                  <div className="btns-container">
+                    <ViewBtn tripId={trip._id} />
+                    <DeleteBtn deleteHandler={this.handleDelete(trip._id)} />
+                  </div>
                 </ListItem>
               ))}
             </List>
