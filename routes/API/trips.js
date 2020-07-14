@@ -5,9 +5,8 @@ router.route('/')
   .post(tripsController.create);
 
 router.route('/:id')
-  .get(tripsController.findTrip);
+  .get(tripsController.findTrip)
+  .delete(tripsController.remove);
 
-// router.route('/:id')
-//   .get(tripsController.findAllTrips);
 
 module.exports = router;

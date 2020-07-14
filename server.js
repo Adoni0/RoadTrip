@@ -19,7 +19,11 @@ app.use(routes);
 // mongoose.connect(process.env.MONGODB_URI || {
 //     useNewUrlParser: true
 // });
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/roadtripdb");
+
+mongoose.connect(
+  process.env.MONGODB_URI ||
+    "mongodb://localhost:27017/roadtripdb", { useNewUrlParser: true, useUnifiedTopology: true }
+  );
 
 // // Send every other request to the React app
 // app.get("*", (req, res) => {
