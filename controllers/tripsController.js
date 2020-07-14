@@ -30,7 +30,7 @@ module.exports = {
         )
       })
       // If we were able to successfully update a User, send it back to the client
-      .then(dbUser => req.json(dbUser))
+      .then(dbUser => res.json(dbUser))
       .catch(err => res.json(err));
   },
   remove: function(req, res) {

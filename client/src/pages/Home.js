@@ -37,11 +37,13 @@ class Home extends Component {
       budget: this.state.budget,
       userId: this.props.userId
     })
-      .then(res => {
-        console.log('Trip saved!');
-        // this.getTrips();
-      })
-      .catch(err => console.log(err));
+    .then(res => {
+      console.log('Trip saved!');
+      const savedTripIds = res.data.trips;
+      // Redirect to the saved trip detail page
+      window.location.replace(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
+    })
+    .catch(err => console.log(err));
   }
 
   render() {
