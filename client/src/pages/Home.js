@@ -12,16 +12,19 @@ class Home extends Component {
     numOfStops: 0,
     budget: 1
   }
+  originRef = React.createRef();
 
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     })
+
   }
 
   handleFormSubmit = event => {
     event.preventDefault();
+
     API.saveTrip({
       tripName: this.state.tripName,
       origin: this.state.origin,
