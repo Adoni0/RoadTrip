@@ -6,6 +6,7 @@ router.route('/')
 
 router.route('/:id')
   .get(tripsController.findTrip)
+  .put(tripsController.update)
   .delete(tripsController.remove);
 
 
