@@ -15,6 +15,7 @@ class Home extends Component {
     numOfStops: 0,
     budget: 1
   }
+  originRef = React.createRef();
 
   componentDidMount() {
     this.props.loadTrips();
@@ -25,10 +26,12 @@ class Home extends Component {
     this.setState({
       [name]: value
     })
+
   }
 
   handleFormSubmit = event => {
     event.preventDefault();
+
     API.saveTrip({
       tripName: this.state.tripName,
       origin: this.state.origin,

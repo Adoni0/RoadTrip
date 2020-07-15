@@ -6,11 +6,26 @@ import {
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
-import DistanceDisplay from '../DistanceDisplay';
+// import DistanceDisplay from '../DistanceDisplay';
 import axios from 'axios';
+import API from '../../utils/API';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+// import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+// import 'react-google-places-autocomplete/dist/index.min.css';
 
 
+// this.setState({ origin: this.originRef.current.value })
+
+{/* <GooglePlacesAutocomplete
+            onSelect={console.log}
+            id="origin"
+            value={this.state.origin}
+            // onChange={this.handleInputChange}
+            ref={this.originRef}
+            name="origin"
+            label="Where are you departing from?"
+            placeholder="Enter your starting point."
+          /> */}
 
 class Directions extends React.Component {
   state = {
@@ -19,16 +34,7 @@ class Directions extends React.Component {
     destination: { lat: 32.7157, lng: -117.1611 }
   };
 
-  // getDistance() {
-  //   const origin = this.state.origin;
-  //   const destination = this.state.destination;
-  //   const travelMode = google.maps.TravelMode.DRIVING;
 
-  //   axios.post('/api/distance', { origin, destination, travelMode })
-  //     .then(res => res.data)
-  //     .then(data => this.props.setDist(data))
-  //     .catch(err => console.log('Unable to get distances: ' + err))
-  // }
   findDistance = () => {
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix({
@@ -43,8 +49,6 @@ class Directions extends React.Component {
         alert('Error was: ' + status);
       } else {
         // console.log(response);
-        //response.rows[0].elements[0].distance.text
-        //response.rows[0].elements[0].duration.text
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
 
@@ -54,8 +58,7 @@ class Directions extends React.Component {
             var element = results[j];
             var distance = element.distance.text;
             var duration = element.duration.text;
-            var from = origins[i];
-            var to = destinations[j];
+            
             console.log("Distance: " + distance);
             console.log("Duration: " + duration);
           }
@@ -65,59 +68,65 @@ class Directions extends React.Component {
     }
   }
 
+  componentDidMount() {
 
+    const directionsService = new google.maps.DirectionsService();
+    const origin = this.state.origin;
+    const destination = this.state.destination;
 
-
-      componentDidMount(){
-        const directionsService = new google.maps.DirectionsService();
-        const origin = this.state.origin;
-        const destination = this.state.destination;
-
-        directionsService.route(
+    directionsService.route(
+      {
+        origin: origin,
+        destination: destination,
+        waypoints: [
           {
-            origin: origin,
-            destination: destination,
-            travelMode: google.maps.TravelMode.DRIVING
-          },
-          (result, status) => {
-            if (status === google.maps.DirectionsStatus.OK) {
-              this.setState({
-                directions: result
-              });
-              this.findDistance();
-            } else {
-              console.error(`error fetching directions ${result}`);
-            }
-          }
-        );
-
+            location: 'Santa Clarita, CA',
+            stopover: true
+          }, {
+            location: 'Anaheim, CA',
+            stopover: true
+          }],
+        travelMode: google.maps.TravelMode.DRIVING
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result
+          });
+          this.findDistance();
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
       }
+    );
 
-      render() {
-        const GoogleMapExample = withGoogleMap(props => (
-          <GoogleMap
-            defaultCenter={{ lat: 33.4274, lng: -117.6126 }}
-            defaultZoom={13}
-          >
-            <DirectionsRenderer
-              directions={this.state.directions}
-            />
-          </GoogleMap>
+  }
 
-        ));
+  render() {
+    const GoogleMapExample = withGoogleMap(props => (
+      <GoogleMap
+        defaultCenter={{ lat: 33.4274, lng: -117.6126 }}
+        defaultZoom={13}
+      >
+        <DirectionsRenderer
+          directions={this.state.directions}
+        />
+      </GoogleMap>
 
-        return (
-          <div>
-            <GoogleMapExample
-              containerElement={<div style={{ height: `750px`, width: "75%" }} />}
-              mapElement={<div style={{ height: `100%` }} />}
-            />
-            {/* <DistanceDisplay /> */}
-          </div>
-        );
-      }
-    }
+    ));
+
+    return (
+      <div>
+        <GoogleMapExample
+          containerElement={<div style={{ height: `750px`, width: "75%" }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+        {/* <DistanceDisplay /> */}
+      </div>
+    );
+  }
+}
 
 
 
-    export default Directions;
+export default Directions;
