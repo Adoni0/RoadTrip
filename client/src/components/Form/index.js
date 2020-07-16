@@ -16,7 +16,11 @@ export const Select = props => {
   return (
     <div className="form-group">
       <label htmlFor={props.id} className="form-label">{props.label}</label>
-      <select id={props.id} name={props.name}>
+      <select
+        id={props.id}
+        name={props.name}
+        onChange={props.inputChangeHandler}
+      >
         {props.optionVals.map(val => (
           <Option
             key={`${props.id}-${val.optionVal}`}
