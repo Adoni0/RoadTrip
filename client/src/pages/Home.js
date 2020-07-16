@@ -83,7 +83,10 @@ class Home extends Component {
       tripName: this.state.tripName,
       origin: this.state.origin,
       destination: this.state.destination,
-      numberOfStops: this.state.numOfStops,
+      stops: {
+        numberOfStops: this.state.numOfStops,
+        placesOfStops: this.state.placesOfStops
+      },
       budget: this.state.budget,
       userId: this.props.userId
     })
