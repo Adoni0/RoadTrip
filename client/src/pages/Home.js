@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import API from "../utils/API";
-import TripForm from "../components/TripForm";
 import { Section, Container } from "../components/Grid";
-import { Input, Select, FormBtn } from "../components/Form";
 import TripsList from "../components/TripsList";
+import TripForm from "../components/TripForm";
 import "../components/List/style.css";
 
 
