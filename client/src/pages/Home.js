@@ -3,7 +3,8 @@ import API from "../utils/API";
 import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
 import TripsList from "../components/TripsList";
-import "../components/List/style.css"
+import "../components/List/style.css";
+
 
 class Home extends Component {
   state = {
@@ -15,7 +16,6 @@ class Home extends Component {
     budget: 1
   }
 
-  originRef = React.createRef();
 
   componentDidMount() {
     this.props.loadTrips();

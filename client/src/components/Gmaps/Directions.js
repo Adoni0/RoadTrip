@@ -6,13 +6,13 @@ import {
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
-// import DistanceDisplay from '../DistanceDisplay';
+import DistanceDisplay from '../DistanceDisplay';
 import axios from 'axios';
 import API from '../../utils/API';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 // import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 // import 'react-google-places-autocomplete/dist/index.min.css';
 
+// originRef = React.createRef();
 
 // this.setState({ origin: this.originRef.current.value })
 
@@ -30,21 +30,16 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 class Directions extends React.Component {
   state = {
     directions: null,
-    origin: { lat: 34.0522, lng: -118.2437 },
-    destination: { lat: 32.7157, lng: -117.1611 }
+    // origin: { lat: 34.0522, lng: -118.2437 },
+    // destination: { lat: 32.7157, lng: -117.1611 }
+    origin: 'Cork, Ireland',
+    destination: "Dublin, Ireland",
+    distance: '',
+    duration: ''
   };
 
 
-  findDistance = () => {
-    var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix({
-      origins: [this.state.origin],
-      destinations: [this.state.destination],
-      travelMode: 'DRIVING',
-      unitSystem: google.maps.UnitSystem.IMPERIAL
-    }, callback);
-
-    function callback(response, status) {
+     callback = (response, status) => {
       if (status !== 'OK') {
         alert('Error was: ' + status);
       } else {
@@ -58,34 +53,35 @@ class Directions extends React.Component {
             var element = results[j];
             var distance = element.distance.text;
             var duration = element.duration.text;
-            
+
             console.log("Distance: " + distance);
             console.log("Duration: " + duration);
+            this.setState({ distance: distance, duration: duration })
           }
 
         }
       }
     }
-  }
+    
 
   componentDidMount() {
 
     const directionsService = new google.maps.DirectionsService();
-    const origin = this.state.origin;
-    const destination = this.state.destination;
+    const origin = this.props.inputOrigin;
+    const destination = this.props.inputDestination;
 
     directionsService.route(
       {
         origin: origin,
         destination: destination,
-        waypoints: [
-          {
-            location: 'Santa Clarita, CA',
-            stopover: true
-          }, {
-            location: 'Anaheim, CA',
-            stopover: true
-          }],
+        // waypoints: [
+        //   {
+        //     location: 'Santa Clarita, CA',
+        //     stopover: true
+        //   }, {
+        //     location: 'Anaheim, CA',
+        //     stopover: true
+        //   }],
         travelMode: google.maps.TravelMode.DRIVING
       },
       (result, status) => {
@@ -93,23 +89,49 @@ class Directions extends React.Component {
           this.setState({
             directions: result
           });
-          this.findDistance();
+          // this.findDistance();
         } else {
           console.error(`error fetching directions ${result}`);
         }
       }
     );
 
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+      origins: [origin],
+      destinations: [destination],
+      travelMode: 'DRIVING',
+      unitSystem: google.maps.UnitSystem.IMPERIAL
+    }, this.callback);
+
   }
 
   render() {
+    const stylesArr = [
+      {
+          "stylers": [
+              {
+                  "saturation": 100
+              },
+              {
+                  "gamma": 0.6
+              }
+          ]
+      }
+  ];
+
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         defaultCenter={{ lat: 33.4274, lng: -117.6126 }}
         defaultZoom={13}
+        defaultOptions={{ styles: stylesArr }}
       >
         <DirectionsRenderer
           directions={this.state.directions}
+        />
+        <DistanceDisplay 
+        distance={this.state.distance}
+        duration={this.state.duration}
         />
       </GoogleMap>
 
@@ -118,10 +140,9 @@ class Directions extends React.Component {
     return (
       <div>
         <GoogleMapExample
-          containerElement={<div style={{ height: `750px`, width: "75%" }} />}
+          containerElement={<div style={{ height: `700px`, width: "70%" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
-        {/* <DistanceDisplay /> */}
       </div>
     );
   }
