@@ -2,16 +2,25 @@ import React, { Component } from 'react';
 import { List, ListItem } from "../List";
 import { DeleteBtn, EditBtn, ViewBtn } from "../Btn";
 import API from "../../utils/API";
+import TripForm from "../TripForm";
+import "../Form/style.css";
 
 class TripsList extends Component {
+  state = {
+    selectedTripId: '',
+    showEditForm: false
+  }
+
   handleEdit = (id) => {
     return () => {
-      // Show Edit form
-
-      // API.updateTrip(id, tripData)
-      //   .then(res => this.props.loadTrips())
-      //   .catch(err => console.log(err));
+      console.log('handleEdit!!');
+      this.setState({
+        showEditForm: true
+      })
     }
+    // API.updateTrip(id, tripData)
+    //   .then(res => this.props.loadTrips())
+    //   .catch(err => console.log(err));
   }
 
   handleDelete = id => {
@@ -22,7 +31,16 @@ class TripsList extends Component {
     }
   }
 
+  hideEditForm = () => {
+    this.setState({
+      showEditForm: false
+    })
+  }
+
   render() {
+    const modalClasses = this.state.showEditForm ? 'form-modal' : 'hide';
+    const darkBGClasses = this.state.showEditForm ? 'dark-bg' : 'hide';
+
     return (
       <>
         {this.props.allTrips.length ? (
@@ -44,6 +62,15 @@ class TripsList extends Component {
           <p className="message">There is no saved trip plans.</p>
         )
         }
+
+        <div className={modalClasses}>
+          <TripForm {...this.props} />
+          <div className="close-btn" onClick={this.hideEditForm}>
+            <ion-icon name="close-circle"></ion-icon>
+          </div>
+        </div>
+        <div className={darkBGClasses} onClick={this.hideEditForm}>
+        </div>
       </>
     )
   }
