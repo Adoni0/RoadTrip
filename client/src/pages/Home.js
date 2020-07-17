@@ -17,12 +17,13 @@ class Home extends Component {
         <h1>Home Page</h1>
         <Section>
           <h2>Fill out your road trip information!!</h2>
-          <TripForm {...this.props} />
+          <TripForm {...this.props} formType='new' />
         </Section>
 
         <Section>
           <h2>Your Road Trip Plans List</h2>
           <TripsList
+            {...this.props}
             allTrips={this.props.allTrips}
             loadTrips={this.props.loadTrips}
           />

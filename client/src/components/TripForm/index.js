@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import {FormBtn, Input, Select} from "../Form";
-import API from "../../utils/API";
+import {FormBtn, Input, Select} from '../Form';
+import API from '../../utils/API';
 
 class TripForm extends Component {
   state = {
-    tripName: "",
-    origin: "",
-    destination: "",
+    tripId: '',
+    tripName: '',
+    origin: '',
+    destination: '',
     numOfStops: 0,
     placesOfStops: [],
     budget: 1
@@ -18,6 +19,7 @@ class TripForm extends Component {
     console.log(tripData);
     if (tripData) {
       this.setState({
+        tripId: tripData._id,
         tripName: tripData.tripName,
         origin: tripData.origin,
         destination: tripData.destination,
@@ -87,24 +89,44 @@ class TripForm extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    API.saveTrip({
-      tripName: this.state.tripName,
-      origin: this.state.origin,
-      destination: this.state.destination,
-      stops: {
-        numberOfStops: this.state.numOfStops,
-        placesOfStops: this.state.placesOfStops
-      },
-      budget: this.state.budget,
-      userId: this.props.userId
-    })
-      .then(res => {
-        console.log('Trip saved!');
-        const savedTripIds = res.data.trips;
-        // Tells react router to change url
-        this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
+    if (this.props.formType === 'new') {
+      API.saveTrip({
+        tripName: this.state.tripName,
+        origin: this.state.origin,
+        destination: this.state.destination,
+        stops: {
+          numberOfStops: this.state.numOfStops,
+          placesOfStops: this.state.placesOfStops
+        },
+        budget: this.state.budget,
+        userId: this.props.userId
       })
-      .catch(err => console.log(err));
+        .then(res => {
+          console.log('Trip saved!');
+          const savedTripIds = res.data.trips;
+          // Tells react router to change url
+          this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
+        })
+        .catch(err => console.log(err));
+
+    } else if (this.props.formType === 'edit') {
+      API.updateTrip(this.state.tripId, {
+        tripName: this.state.tripName,
+        origin: this.state.origin,
+        destination: this.state.destination,
+        stops: {
+          numberOfStops: this.state.numOfStops,
+          placesOfStops: this.state.placesOfStops
+        },
+        budget: this.state.budget
+      })
+        .then(res => {
+          console.log('Trip updated!');
+          // Tells react router to change url
+          this.props.history.push(`/trip-plans/${this.state.tripId}`);
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   stopIndexArr = num => {

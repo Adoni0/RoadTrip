@@ -64,7 +64,11 @@ class TripsList extends Component {
         {this.state.showEditForm ? (
           <>
             <div className="form-modal">
-              <TripForm {...this.props} selectedTripData={this.state.selectedTripData} />
+              <TripForm
+                {...this.props}
+                selectedTripData={this.state.selectedTripData}
+                formType='edit'
+              />
               <div className="close-btn" onClick={this.hideEditForm}>
                 <ion-icon name="close-circle"></ion-icon>
               </div>
