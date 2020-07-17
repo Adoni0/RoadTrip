@@ -11,13 +11,18 @@ export default function Login() {
       return email.length > 0 && password.length > 0;
     }
   
-    function handleSubmit(event) {
+    function handleSubmitLogin(event) {
+      event.preventDefault();
+    }
+
+    function handleSubmitRegister(event){
       event.preventDefault();
     }
   
     return (
+      <div classname = "Container">
       <div className="Login">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitLogin}>
           <Input
               id="email"
               value={email}
@@ -40,6 +45,40 @@ export default function Login() {
           </ViewBtn>
         </form>
       </div>
+
+  <div className="Register">
+  <form onSubmit={handleSubmitRegister}>
+  <Input
+        id="username"
+        value={username}
+        onChange={this.handleInputChange}
+        name="username"
+        label="Username"
+        onChange={e => setUsername(e.target.value)}
+      />
+    <Input
+        id="email"
+        value={email}
+        onChange={this.handleInputChange}
+        name="email"
+        label="Email"
+        onChange={e => setEmail(e.target.value)}
+      />
+
+    <Input
+        id="password"
+        value={password}
+        onChange={this.handleInputChange}
+        name="password"
+        label="Password"
+        onChange={e => setPassword(e.target.value)}
+      />
+    <ViewBtn block bsSize="large" disabled={!validateForm()} type="submit">
+      Register
+    </ViewBtn>
+  </form>
+  </div>
+</div>
     );
   }
 
