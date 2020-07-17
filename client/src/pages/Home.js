@@ -93,8 +93,8 @@ class Home extends Component {
     .then(res => {
       console.log('Trip saved!');
       const savedTripIds = res.data.trips;
-      // Redirect to the saved trip detail page
-      window.location.replace(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
+      // Tells react router to change url
+      this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
     })
     .catch(err => console.log(err));
   }
