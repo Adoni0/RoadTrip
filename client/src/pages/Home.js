@@ -5,7 +5,8 @@ import { Input, Select, FormBtn } from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { DeleteBtn, ViewBtn } from "../components/Btn";
 import TripsList from "../components/TripsList";
-import "../components/List/style.css"
+import "../components/List/style.css";
+
 
 class Home extends Component {
   state = {
@@ -15,7 +16,7 @@ class Home extends Component {
     numOfStops: 0,
     budget: 1
   }
-  originRef = React.createRef();
+
 
   componentDidMount() {
     this.props.loadTrips();

@@ -33,10 +33,24 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={props => <Home {...props} userId={this.state.userId} loadTrips={this.loadTrips} allTrips={this.state.allTrips} />}
+              render={props => <Home {...props}
+              userId={this.state.userId}
+              loadTrips={this.loadTrips}
+              allTrips={this.state.allTrips} />}
             />
-            <Route exact path="/trip-plans" component={TripPlan} />
-            <Route exact path="/trip-plans/:id" component={TripPlan} />
+
+            <Route
+              exact
+              path="/trip-plans"
+              component={TripPlan}
+            />
+
+            <Route
+              exact
+              path="/trip-plans/:id"
+              component={TripPlan}
+            />
+
             <Route component={NoMatch} />
           </Switch>
         </>
