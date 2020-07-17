@@ -43,7 +43,6 @@ class Directions extends React.Component {
       if (status !== 'OK') {
         alert('Error was: ' + status);
       } else {
-        // console.log(response);
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
 
@@ -51,11 +50,11 @@ class Directions extends React.Component {
           var results = response.rows[i].elements;
           for (var j = 0; j < results.length; j++) {
             var element = results[j];
-            var distance = element.distance.text;
-            var duration = element.duration.text;
+            var distance = element.distance ? element.distance.text : "no distance returned";
+            var duration = element.duration ? element.duration.text : "no duration returned";
 
-            console.log("Distance: " + distance);
-            console.log("Duration: " + duration);
+            // console.log("Distance: " + distance);
+            // console.log("Duration: " + duration);
             this.setState({ distance: distance, duration: duration })
           }
 
@@ -74,14 +73,10 @@ class Directions extends React.Component {
       {
         origin: origin,
         destination: destination,
-        // waypoints: [
-        //   {
-        //     location: 'Santa Clarita, CA',
-        //     stopover: true
-        //   }, {
-        //     location: 'Anaheim, CA',
-        //     stopover: true
-        //   }],
+        waypoints: this.props.stops.map(stop => {
+          return {location: stop, stopover: true}
+        }),
+        
         travelMode: google.maps.TravelMode.DRIVING
       },
       (result, status) => {
