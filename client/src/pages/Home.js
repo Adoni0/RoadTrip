@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import API from "../utils/API";
 import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
-import { List, ListItem } from "../components/List";
-import { DeleteBtn, ViewBtn } from "../components/Btn";
 import TripsList from "../components/TripsList";
 import "../components/List/style.css"
 
@@ -13,20 +11,69 @@ class Home extends Component {
     origin: "",
     destination: "",
     numOfStops: 0,
+    placesOfStops: [],
     budget: 1
   }
+
   originRef = React.createRef();
 
   componentDidMount() {
     this.props.loadTrips();
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // If the number of stops become less than the length of this.state.placesOfStops,
+    // it'll delete elements from this.state.placesOfStops
+    // until it contains only the same number of places as this.state.numOfStops
+    if (this.state.numOfStops !== prevState.numOfStops) {
+      const newPlacesOfStops = this.state.placesOfStops;
+      while (this.state.numOfStops < newPlacesOfStops.length) {
+        newPlacesOfStops.pop();
+        console.log(newPlacesOfStops);
+      }
+      this.setState({
+        placesOfStops: newPlacesOfStops
+      })
+    }
+  }
+
+  renderStopLocationInputs = numOfStops => (
+    <>
+      {numOfStops ?
+        this.stopIndexArr(numOfStops).map(num =>
+          <Input
+            key={`stop${num}`}
+            id={`stop${num}`}
+            value={this.state.placesOfStops[num - 1]}
+            onChange={this.handleAddStopPlaces}
+            name={`stop${num}`} // if the name gets changed, it'll affect handleAddStopPlaces logic!!
+            label={`Stop${num} Location`}
+            placeholder="Enter your stop location."
+          />
+        ) : null
+      }
+    </>
+  );
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     })
+  }
 
+  handleAddStopPlaces = event => {
+    const { name, value } = event.target;
+    const newPlacesOfStops = this.state.placesOfStops;
+    const index = parseInt(name.split('stop')[1]) - 1;
+    newPlacesOfStops[index] = value;
+
+    this.setState({
+      placesOfStops: newPlacesOfStops
+    })
+
+    console.log('this.state.placesOfStops: ');
+    console.log(this.state.placesOfStops);
   }
 
   handleFormSubmit = event => {
@@ -36,17 +83,28 @@ class Home extends Component {
       tripName: this.state.tripName,
       origin: this.state.origin,
       destination: this.state.destination,
-      numberOfStops: this.state.numOfStops,
+      stops: {
+        numberOfStops: this.state.numOfStops,
+        placesOfStops: this.state.placesOfStops
+      },
       budget: this.state.budget,
       userId: this.props.userId
     })
     .then(res => {
       console.log('Trip saved!');
       const savedTripIds = res.data.trips;
-      // Redirect to the saved trip detail page
-      window.location.replace(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
+      // Tells react router to change url
+      this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
     })
     .catch(err => console.log(err));
+  }
+
+  stopIndexArr = num => {
+    const indexArr = [];
+    for (let i = 1; i <= num; i++ ) {
+      indexArr.push(i);
+    }
+    return indexArr;
   }
 
   render() {
@@ -56,6 +114,7 @@ class Home extends Component {
       { optionVal: 2, textVal: 2 },
       { optionVal: 3, textVal: 3 },
     ];
+
     const budgetArr = [
       { optionVal: 1, textVal: '$' },
       { optionVal: 2, textVal: '$$' },
@@ -95,15 +154,16 @@ class Home extends Component {
             <Select
               id="numOfStops"
               value={this.state.numOfStops}
-              onChange={this.handleInputChange}
+              inputChangeHandler={this.handleInputChange}
               name="numOfStops"
               label="How many stops would you like to make?"
               optionVals={numOfStopsArr}
             />
+            {this.renderStopLocationInputs(this.state.numOfStops)}
             <Select
               id="budget"
               value={this.state.budget}
-              onChange={this.handleInputChange}
+              inputChangeHandler={this.handleInputChange}
               name="budget"
               label="Budget?"
               optionVals={budgetArr}
@@ -122,6 +182,7 @@ class Home extends Component {
           <TripsList
             allTrips={this.props.allTrips}
             loadTrips={this.props.loadTrips}
+            tripData={this.state}
           />
         </Section>
       </Container>
