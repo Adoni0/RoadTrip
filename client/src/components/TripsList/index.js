@@ -4,7 +4,7 @@ import { DeleteBtn, EditBtn, ViewBtn } from "../Btn";
 import API from "../../utils/API";
 
 class TripsList extends Component {
-  handleEdit = (id, tripData) => {
+  handleEdit = (id) => {
     return () => {
       // Show Edit form
 
