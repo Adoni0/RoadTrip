@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withScriptjs } from "react-google-maps";
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import Directions from './Directions';
 
 export class Gmaps extends Component {
@@ -16,6 +15,7 @@ export class Gmaps extends Component {
                 loadingElement={<div style={{ height: `100%` }} />}
                 inputOrigin={this.props.inputOrigin}
                 inputDestination={this.props.inputDestination}
+                stops={this.props.stops}
             />
 
         )
