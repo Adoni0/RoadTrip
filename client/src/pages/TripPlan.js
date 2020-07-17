@@ -5,6 +5,7 @@ import API from '../utils/API';
 import GoogleMap from 'google-distance-matrix';
 
 class TripPlan extends Component {
+
   state = {
     origin: '',
     destination: '',
@@ -37,6 +38,7 @@ class TripPlan extends Component {
         <Gmaps
           inputOrigin={this.state.origin}
           inputDestination={this.state.destination}
+          allTrips={this.props.allTrips}
         />
       </Container>
     );

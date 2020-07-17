@@ -4,11 +4,13 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import Directions from './Directions';
 
 export class Gmaps extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-    
 
     render() {
-        const  MapLoader = withScriptjs(Directions); 
+        const MapLoader = withScriptjs(Directions);
         return (
 
             <MapLoader

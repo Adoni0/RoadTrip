@@ -39,36 +39,41 @@ class Directions extends React.Component {
   };
 
 
-     callback = (response, status) => {
-      if (status !== 'OK') {
-        alert('Error was: ' + status);
-      } else {
-        // console.log(response);
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
+  callback = (response, status) => {
+    if (status !== 'OK') {
+      alert('Error was: ' + status);
+    } else {
+      // console.log(response);
+      var origins = response.originAddresses;
+      var destinations = response.destinationAddresses;
 
-        for (var i = 0; i < origins.length; i++) {
-          var results = response.rows[i].elements;
-          for (var j = 0; j < results.length; j++) {
-            var element = results[j];
-            var distance = element.distance.text;
-            var duration = element.duration.text;
+      for (var i = 0; i < origins.length; i++) {
+        var results = response.rows[i].elements;
+        for (var j = 0; j < results.length; j++) {
+          var element = results[j];
+          var distance = element.distance.text;
+          var duration = element.duration.text;
 
-            console.log("Distance: " + distance);
-            console.log("Duration: " + duration);
-            this.setState({ distance: distance, duration: duration })
-          }
-
+          console.log("Distance: " + distance);
+          console.log("Duration: " + duration);
+          this.setState({ distance: distance, duration: duration })
         }
+
       }
     }
-    
+  }
+
 
   componentDidMount() {
 
     const directionsService = new google.maps.DirectionsService();
     const origin = this.props.inputOrigin;
     const destination = this.props.inputDestination;
+
+    this.setState({
+      origin,
+      destination
+    });
 
     directionsService.route(
       {
@@ -109,16 +114,16 @@ class Directions extends React.Component {
   render() {
     const stylesArr = [
       {
-          "stylers": [
-              {
-                  "saturation": 100
-              },
-              {
-                  "gamma": 0.6
-              }
-          ]
+        "stylers": [
+          {
+            "saturation": 100
+          },
+          {
+            "gamma": 0.6
+          }
+        ]
       }
-  ];
+    ];
 
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
@@ -129,9 +134,11 @@ class Directions extends React.Component {
         <DirectionsRenderer
           directions={this.state.directions}
         />
-        <DistanceDisplay 
-        distance={this.state.distance}
-        duration={this.state.duration}
+        <DistanceDisplay
+          inputDestination={this.state.destination}
+          inputOrigin={this.state.origin}
+          distance={this.state.distance}
+          duration={this.state.duration}
         />
       </GoogleMap>
 
