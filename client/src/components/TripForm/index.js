@@ -12,6 +12,23 @@ class TripForm extends Component {
     budget: 1
   }
 
+  componentDidMount() {
+    const tripData = this.props.selectedTripData;
+    console.log('tripData: ');
+    console.log(tripData);
+    if (tripData) {
+      this.setState({
+        tripName: tripData.tripName,
+        origin: tripData.origin,
+        destination: tripData.destination,
+        numOfStops: tripData.stops.numberOfStops,
+        placesOfStops: tripData.stops.placesOfStops,
+        budget: tripData.budget
+      })
+    }
+  }
+
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     // If the number of stops become less than the length of this.state.placesOfStops,
     // it'll delete elements from this.state.placesOfStops

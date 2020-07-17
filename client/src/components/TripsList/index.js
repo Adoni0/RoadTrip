@@ -7,15 +7,16 @@ import "../Form/style.css";
 
 class TripsList extends Component {
   state = {
-    selectedTripId: '',
-    showEditForm: false
+    showEditForm: false,
+    selectedTripData: {}
   }
 
-  handleEdit = (id) => {
+  handleEdit = (trip) => {
     return () => {
       console.log('handleEdit!!');
       this.setState({
-        showEditForm: true
+        showEditForm: true,
+        selectedTripData: trip
       })
     }
     // API.updateTrip(id, tripData)
@@ -38,9 +39,6 @@ class TripsList extends Component {
   }
 
   render() {
-    const modalClasses = this.state.showEditForm ? 'form-modal' : 'hide';
-    const darkBGClasses = this.state.showEditForm ? 'dark-bg' : 'hide';
-
     return (
       <>
         {this.props.allTrips.length ? (
@@ -52,7 +50,7 @@ class TripsList extends Component {
                 <p>{trip._id}</p>
                 <div className="btns-container">
                   <ViewBtn link={`/trip-plans/${trip._id}`} />
-                  <EditBtn editHandler={this.handleEdit(trip._id)} />
+                  <EditBtn editHandler={this.handleEdit(trip)} />
                   <DeleteBtn deleteHandler={this.handleDelete(trip._id)} />
                 </div>
               </ListItem>
@@ -63,14 +61,18 @@ class TripsList extends Component {
         )
         }
 
-        <div className={modalClasses}>
-          <TripForm {...this.props} />
-          <div className="close-btn" onClick={this.hideEditForm}>
-            <ion-icon name="close-circle"></ion-icon>
-          </div>
-        </div>
-        <div className={darkBGClasses} onClick={this.hideEditForm}>
-        </div>
+        {this.state.showEditForm ? (
+          <>
+            <div className="form-modal">
+              <TripForm {...this.props} selectedTripData={this.state.selectedTripData} />
+              <div className="close-btn" onClick={this.hideEditForm}>
+                <ion-icon name="close-circle"></ion-icon>
+              </div>
+            </div>
+            <div className="dark-bg" onClick={this.hideEditForm}>
+            </div>
+          </>
+        ) : null}
       </>
     )
   }

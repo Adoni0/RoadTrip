@@ -20,6 +20,7 @@ export const Select = props => {
         id={props.id}
         name={props.name}
         onChange={props.inputChangeHandler}
+        value={props.value}
       >
         {props.optionVals.map(val => (
           <Option
