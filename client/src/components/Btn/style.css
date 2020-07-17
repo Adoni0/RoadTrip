@@ -14,7 +14,7 @@
   border: none;
 }
 
-.btn:not(:last-of-type) {
+.btn:not(:last-child) {
   margin-right: 1.5rem;
 }
 

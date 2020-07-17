@@ -1,3 +1,21 @@
+.form-modal {
+    width: 90%;
+    max-width: 50rem;
+    padding: 3rem;
+    background: var(--color-white);
+    box-shadow: 0 0 3rem rgba(0, 0, 0, .3);
+    position: fixed;
+    top: calc(100vh / 2);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    border-radius: 1rem;
+    display: block;
+}
+
 .form-group {
     width: 100%;
     margin: 2rem 0;
@@ -42,4 +60,24 @@
 .btn-form:focus {
     background-color: var(--color-blue-light1);
     border-color: var(--color-blue);
+}
+
+.dark-bg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, .4);
+}
+
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    z-index: 200;
+    font-size: 4rem;
+    cursor: pointer;
 }
