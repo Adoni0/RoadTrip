@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 import Home from './pages/Home';
@@ -13,6 +14,25 @@ class App extends Component {
   state = {
     userId: '1', // This Id is temp
     allTrips: []
+  }
+
+  socketURL =
+    process.env.NODE_ENV === 'production'
+      ? window.location.hostname
+      : 'http://localhost:3001';
+
+  socket = io.connect(this.socketURL, {secure: true});
+
+  componentDidMount() {
+    this.socket.on("outgoing data", data => {
+      // this.setState({response: data})
+      // console.log( `The book "${this.state.response.title}" has been saved!` );
+
+      console.log('A trip is saved!');
+      console.log(data);
+      console.log(`Trip Name: ${data.tripName}`);
+      console.log(`destination: ${data.destination}`);
+    })
   }
 
   loadTrips = () => {
@@ -36,7 +56,8 @@ class App extends Component {
               render={props => <Home {...props}
               userId={this.state.userId}
               loadTrips={this.loadTrips}
-              allTrips={this.state.allTrips} />}
+              allTrips={this.state.allTrips}
+              socket={this.socket}/>}
             />
 
             <Route
