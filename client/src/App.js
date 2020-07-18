@@ -5,6 +5,7 @@ import API from "./utils/API";
 import Home from './pages/Home';
 import TripPlan from './pages/TripPlan';
 import NoMatch from "./pages/NoMatch";
+import Notification from "./components/Notification";
 
 import './App.css';
 
@@ -13,7 +14,8 @@ class App extends Component {
 
   state = {
     userId: '1', // This Id is temp
-    allTrips: []
+    allTrips: [],
+    socketData: ''
   }
 
   socketURL =
@@ -25,8 +27,7 @@ class App extends Component {
 
   componentDidMount() {
     this.socket.on("outgoing data", data => {
-      // this.setState({response: data})
-      // console.log( `The book "${this.state.response.title}" has been saved!` );
+      this.setState({socketData: data})
 
       console.log('A trip is saved!');
       console.log(data);
@@ -74,6 +75,7 @@ class App extends Component {
 
             <Route component={NoMatch} />
           </Switch>
+          <Notification socketData={this.state.socketData} />
         </>
       </Router>
     )
