@@ -28,7 +28,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "google-distance-matrix": "^1.1.1",
-    "google-maps-react": "^2.0.6",
     "if-env": "^1.0.4",
     "mongoose": "^5.9.22",
     "react-google-maps": "^9.4.5",

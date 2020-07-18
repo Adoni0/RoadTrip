@@ -2,13 +2,10 @@
 import React from "react";
 import {
   withGoogleMap,
-  withScriptjs,
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
 import DistanceDisplay from '../DistanceDisplay';
-import axios from 'axios';
-import API from '../../utils/API';
 // import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 // import 'react-google-places-autocomplete/dist/index.min.css';
 
@@ -118,7 +115,7 @@ class Directions extends React.Component {
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         defaultCenter={{ lat: 33.4274, lng: -117.6126 }}
-        defaultZoom={13}
+        defaultZoom={10}
         defaultOptions={{ styles: stylesArr }}
       >
         <DirectionsRenderer
