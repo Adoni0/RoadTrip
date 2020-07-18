@@ -107,8 +107,10 @@ class TripForm extends Component {
           console.log(this.state.tripName);
 
           this.props.socket.emit("incoming data", {
-            tripName: this.state.tripName,
-            destination: this.state.destination
+            tripData: {
+              tripName: this.state.tripName,
+              destination: this.state.destination
+            }
           })
 
           const savedTripIds = res.data.trips;

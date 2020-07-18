@@ -30,8 +30,8 @@ class App extends Component {
 
       console.log('A trip is saved!');
       console.log(data);
-      console.log(`Trip Name: ${data.tripName}`);
-      console.log(`destination: ${data.destination}`);
+      console.log(`Trip Name: ${data.tripData.tripName}`);
+      console.log(`Destination: ${data.tripData.destination}`);
     })
   }
 

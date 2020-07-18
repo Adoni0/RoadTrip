@@ -44,7 +44,7 @@ io.on("connection", socket => {
 
     //Here we broadcast it out to all other sockets EXCLUDING the socket which sent us the data
     socket.broadcast.emit('outgoing data', {
-      destination: data.destination
+      tripData: data.tripData
     });
   });
 
