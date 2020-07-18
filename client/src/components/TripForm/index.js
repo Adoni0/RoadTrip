@@ -103,6 +103,14 @@ class TripForm extends Component {
       })
         .then(res => {
           console.log('Trip saved!');
+          console.log('this.state.tripName');
+          console.log(this.state.tripName);
+
+          this.props.socket.emit("incoming data", {
+            tripName: this.state.tripName,
+            destination: this.state.destination
+          })
+
           const savedTripIds = res.data.trips;
           // Tells react router to change url
           this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);

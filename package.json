@@ -33,7 +33,8 @@
     "mongoose": "^5.9.22",
     "react-google-maps": "^9.4.5",
     "react-google-places-autocomplete": "^2.1.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
