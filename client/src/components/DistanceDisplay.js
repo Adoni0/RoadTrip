@@ -6,22 +6,36 @@ export default function DistanceDisplay(props) {
         // float: 'right'
         position: 'relative',
         left: 700,
-        bottom: 700
+        bottom: 100,
+        
     }
 
     const cardStyle = {
-        width: 200
+        width: 200,
     }
 
     const rowStyle = {
-        width: 450
+        width: 450,
+        marginTop: -500,
     }
+
+    const resultsStyle = {
+        position: 'relative',
+        bottom: 650,
+        left: 700,
+        marginTop: -50
+    }
+
     return (
-        <div style={divStyle}>
+        <>
+        <div style={resultsStyle} className='results'>
             <h3> Results</h3>
             <p>Distance: {props.distance}</p>
             <p>Duration: {props.duration}</p>
+            </div>
+        <div style={divStyle}>
 
+                       
             <div className="row row-cols-1 row-cols-md-2" style={rowStyle}>
             <div className="col mb-4" style={cardStyle}>
                 <div className="card">
@@ -66,6 +80,7 @@ export default function DistanceDisplay(props) {
             </div>
 
         </div>
+        </>
     )
 }
 
