@@ -1,84 +1,132 @@
 import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
-import { ViewBtn } from "../components/Btn";
+import { SubmitBtn } from "../components/Btn";
+import API from '../utils/API';
+import APP from "../App.js";
 
-export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-  
-    function validateForm() {
-      return email.length > 0 && password.length > 0;
-    }
-  
-    function handleSubmitLogin(event) {
-      event.preventDefault();
-    }
+class Login extends Component {
+  constructor() {
+    super();
 
-    function handleSubmitRegister(event){
-      event.preventDefault();
+    this.state = {
+      loginEmail:"",
+      loginPassword:"",
+      registerUsername: "",
+      registerPassword: "",
+      registerEmail: ""
+    };
+  }
+    
+
+    loginValidateForm() {
+      return this.state.loginEmail.length > 0 && this.state.loginPassword.length > 0;
     }
-  
+   registerValidateForm() {
+      return this.state.registerUsername.length > 0 && 
+      this.state.registerPassword.length > 0 &&
+      this.state.registerEmail.length > 0;
+    }
+ 
+    handleSubmitLogin = (event) => {
+      event.preventDefault();
+      API.Login({
+        email: this.state.loginEmail,
+        password: this.state.loginPassword,
+      })
+      .then(res => {
+        console.log('User logged in!');
+        APP.handleSetState(res.data.id);
+        // Redirect to the trips page
+        window.location.replace(`/`);
+    })
+  }
+
+    handleInputChange = (e) => {
+      const {name, value} = e.target;
+
+      this.setState({
+        [name]: value
+      });
+    };
+
+    handleSubmitRegister = (event) => {
+      event.preventDefault();
+      API.Register({
+        username: this.state.registerUsername,
+        email: this.state.registerEmail,
+        password: this.state.registerPassword
+      })
+      .then(res => {
+      console.log('User registered!');
+      APP.handleSetState(res.data.id);
+      // Redirect to the trips page
+      window.location.replace(`/`);
+    })
+    .catch(err => console.log(err));
+    }
+  render(){
     return (
       <div classname = "Container">
       <div className="Login">
-        <form onSubmit={handleSubmitLogin}>
+        <form onSubmit={this.handleSubmitLogin}>
           <Input
               id="email"
-              value={email}
+              value={this.state.loginEmail}
               onChange={this.handleInputChange}
-              name="email"
+              name="loginEmail"
               label="Email"
-              onChange={e => setEmail(e.target.value)}
             />
 
            <Input
               id="password"
-              value={password}
+              value={this.state.loginPassword}
               onChange={this.handleInputChange}
-              name="password"
+              name="loginPassword"
               label="Password"
-              onChange={e => setPassword(e.target.value)}
             />
-          <ViewBtn block bsSize="large" disabled={!validateForm()} type="submit">
+          <SubmitBtn block bsSize="large" disabled={!this.loginValidateForm()} type="submit"
+          onSubmit={this.handleSubmitLogin}>
             Login
-          </ViewBtn>
+          </SubmitBtn>
         </form>
       </div>
 
   <div className="Register">
-  <form onSubmit={handleSubmitRegister}>
+  <form onSubmit={this.handleSubmitRegister}>
   <Input
         id="username"
-        value={username}
+        value={this.state.registerUsername}
         onChange={this.handleInputChange}
-        name="username"
+        name="registerUsername"
         label="Username"
-        onChange={e => setUsername(e.target.value)}
       />
     <Input
         id="email"
-        value={email}
+        value={this.state.registerEmail}
         onChange={this.handleInputChange}
-        name="email"
+        name="registerEmail"
         label="Email"
-        onChange={e => setEmail(e.target.value)}
       />
 
     <Input
         id="password"
-        value={password}
+        value={this.state.registerPassword}
         onChange={this.handleInputChange}
-        name="password"
+        name="registerPassword"
         label="Password"
-        onChange={e => setPassword(e.target.value)}
       />
-    <ViewBtn block bsSize="large" disabled={!validateForm()} type="submit">
+    <SubmitBtn block bsSize="large" disabled={!this.registerValidateForm()} type="submit"
+    onSubmit={this.handleSubmitRegister}>
       Register
-    </ViewBtn>
+    </SubmitBtn>
   </form>
   </div>
 </div>
+  
     );
   }
+    }
+
+  export default Login;
 

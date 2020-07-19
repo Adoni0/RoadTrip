@@ -4,12 +4,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema ({
-  // _id is TEMP (Delete for production)
-  _id: {
-    type: String,
-    required: true,
-    unique: true
-  },
   username: {
     type: String,
     required: true,
