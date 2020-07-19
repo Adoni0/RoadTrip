@@ -26,7 +26,11 @@ class App extends Component {
   socket = io.connect(this.socketURL, {secure: true});
 
   componentDidMount() {
-    this.socket.on("outgoing data", data => {
+    // this.socket.on("outgoing data", data => {
+    //   this.setState({socketData: data})
+    // })
+
+    this.socket.on("incoming data", data => {
       this.setState({socketData: data})
 
       console.log('A trip is saved!');
