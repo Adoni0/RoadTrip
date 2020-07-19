@@ -25,16 +25,20 @@
   "homepage": "https://github.com/Adoni0/project-3#readme",
   "dependencies": {
     "axios": "^0.19.2",
+<<<<<<< HEAD
     "bcrypt": "^5.0.0",
+=======
+>>>>>>> master
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "google-distance-matrix": "^1.1.1",
-    "google-maps-react": "^2.0.6",
     "if-env": "^1.0.4",
     "mongoose": "^5.9.22",
     "passport": "^0.4.1",
     "react-google-maps": "^9.4.5",
-    "react-router-dom": "^5.2.0"
+    "react-google-places-autocomplete": "^2.1.0",
+    "react-router-dom": "^5.2.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",

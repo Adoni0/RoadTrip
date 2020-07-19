@@ -1,16 +1,48 @@
 import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import Gmaps from '../components/Gmaps/';
+import API from '../utils/API';
+
 
 class TripPlan extends Component {
+  state = {
+    origin: '',
+    destination: '',
+    stops: []
+  }
+
+  grabTravelValues = (id) => {
+
+    API.getTrip(id)
+      .then(res => {
+
+        this.setState({ origin: res.data.origin, 
+          destination: res.data.destination, 
+          stops: res.data.stops.placesOfStops });
+
+      })
+
+  }
+
+  componentDidMount() {
+
+    const id = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+
+    this.grabTravelValues(id);
+
+  }
+
+
+
   render() {
     return (
       <Container>
         <h1>Trip Plan Result Page</h1>
-        <p>
-          Put Trip Plan result here.
-        </p>
-        <Gmaps />
+        <Gmaps
+          inputOrigin={this.state.origin}
+          inputDestination={this.state.destination}
+          stops={this.state.stops}
+        />
       </Container>
     );
   }

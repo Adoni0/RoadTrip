@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 import Home from './pages/Home';
@@ -18,6 +19,24 @@ class App extends Component {
 
   handleSetState(userID){
     //userId = userID;
+  socketURL =
+    process.env.NODE_ENV === 'production'
+      ? window.location.hostname
+      : 'http://localhost:3001';
+
+  socket = io.connect(this.socketURL, {secure: true});
+  }
+
+  componentDidMount() {
+    this.socket.on("outgoing data", data => {
+      // this.setState({response: data})
+      // console.log( `The book "${this.state.response.title}" has been saved!` );
+
+      console.log('A trip is saved!');
+      console.log(data);
+      console.log(`Trip Name: ${data.tripName}`);
+      console.log(`destination: ${data.destination}`);
+    })
   }
 
   loadTrips = () => {

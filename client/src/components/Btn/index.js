@@ -12,6 +12,14 @@ export const DeleteBtn = (props) => {
   );
 }
 
+export const EditBtn = (props) => {
+  return (
+    <span className="btn btn-green" onClick={props.editHandler}>
+      Edit
+    </span>
+  );
+}
+
 export const SaveBtn = (props) => {
   return (
     <>

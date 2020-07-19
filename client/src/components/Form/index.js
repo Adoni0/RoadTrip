@@ -7,7 +7,15 @@ export const Input = props => {
   return (
     <div className="form-group">
       <label htmlFor={props.id} className="form-label">{props.label}</label>
-      <input type="text" className="form-input" {...props} />
+      <input
+        type="text"
+        className="form-input"
+        id={props.id}
+        value={props.value}
+        onChange={props.onChange}
+        name={props.name}
+        placeholder={props.placeholder}
+      />
     </div>
   );
 }
@@ -16,7 +24,12 @@ export const Select = props => {
   return (
     <div className="form-group">
       <label htmlFor={props.id} className="form-label">{props.label}</label>
-      <select id={props.id} name={props.name}>
+      <select
+        id={props.id}
+        name={props.name}
+        onChange={props.inputChangeHandler}
+        value={props.value}
+      >
         {props.optionVals.map(val => (
           <Option
             key={`${props.id}-${val.optionVal}`}

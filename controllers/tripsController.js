@@ -33,6 +33,12 @@ module.exports = {
       .then(dbUser => res.json(dbUser))
       .catch(err => res.json(err));
   },
+  update: function(req, res) {
+    db.Trip
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.json(err));
+  },
   remove: function(req, res) {
     db.Trip
       .findById({ _id: req.params.id })

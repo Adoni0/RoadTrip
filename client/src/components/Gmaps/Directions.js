@@ -2,49 +2,44 @@
 import React from "react";
 import {
   withGoogleMap,
-  withScriptjs,
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
 import DistanceDisplay from '../DistanceDisplay';
-import axios from 'axios';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+// import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+// import 'react-google-places-autocomplete/dist/index.min.css';
 
+// originRef = React.createRef();
 
+// this.setState({ origin: this.originRef.current.value })
+
+{/* <GooglePlacesAutocomplete
+            onSelect={console.log}
+            id="origin"
+            value={this.state.origin}
+            // onChange={this.handleInputChange}
+            ref={this.originRef}
+            name="origin"
+            label="Where are you departing from?"
+            placeholder="Enter your starting point."
+          /> */}
 
 class Directions extends React.Component {
   state = {
     directions: null,
-    origin: { lat: 34.0522, lng: -118.2437 },
-    destination: { lat: 32.7157, lng: -117.1611 }
+    // origin: { lat: 34.0522, lng: -118.2437 },
+    // destination: { lat: 32.7157, lng: -117.1611 }
+    origin: 'Cork, Ireland',
+    destination: "Dublin, Ireland",
+    distance: '',
+    duration: ''
   };
 
-  // getDistance() {
-  //   const origin = this.state.origin;
-  //   const destination = this.state.destination;
-  //   const travelMode = google.maps.TravelMode.DRIVING;
 
-  //   axios.post('/api/distance', { origin, destination, travelMode })
-  //     .then(res => res.data)
-  //     .then(data => this.props.setDist(data))
-  //     .catch(err => console.log('Unable to get distances: ' + err))
-  // }
-  findDistance = () => {
-    var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix({
-      origins: [this.state.origin],
-      destinations: [this.state.destination],
-      travelMode: 'DRIVING',
-      unitSystem: google.maps.UnitSystem.IMPERIAL
-    }, callback);
-
-    function callback(response, status) {
+     callback = (response, status) => {
       if (status !== 'OK') {
         alert('Error was: ' + status);
       } else {
-        // console.log(response);
-        //response.rows[0].elements[0].distance.text
-        //response.rows[0].elements[0].duration.text
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
 
@@ -52,72 +47,99 @@ class Directions extends React.Component {
           var results = response.rows[i].elements;
           for (var j = 0; j < results.length; j++) {
             var element = results[j];
-            var distance = element.distance.text;
-            var duration = element.duration.text;
-            var from = origins[i];
-            var to = destinations[j];
-            console.log("Distance: " + distance);
-            console.log("Duration: " + duration);
+            var distance = element.distance ? element.distance.text : "no distance returned";
+            var duration = element.duration ? element.duration.text : "no duration returned";
+
+            // console.log("Distance: " + distance);
+            // console.log("Duration: " + duration);
+            this.setState({ distance: distance, duration: duration })
           }
 
         }
       }
     }
+    
+
+  componentDidMount() {
+
+    const directionsService = new google.maps.DirectionsService();
+    const origin = this.props.inputOrigin;
+    const destination = this.props.inputDestination;
+
+    directionsService.route(
+      {
+        origin: origin,
+        destination: destination,
+        waypoints: this.props.stops.map(stop => {
+          return {location: stop, stopover: true}
+        }),
+        
+        travelMode: google.maps.TravelMode.DRIVING
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result
+          });
+          // this.findDistance();
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      }
+    );
+
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+      origins: [origin],
+      destinations: [destination],
+      travelMode: 'DRIVING',
+      unitSystem: google.maps.UnitSystem.IMPERIAL
+    }, this.callback);
+
   }
 
-
-
-
-      componentDidMount(){
-        const directionsService = new google.maps.DirectionsService();
-        const origin = this.state.origin;
-        const destination = this.state.destination;
-
-        directionsService.route(
-          {
-            origin: origin,
-            destination: destination,
-            travelMode: google.maps.TravelMode.DRIVING
-          },
-          (result, status) => {
-            if (status === google.maps.DirectionsStatus.OK) {
-              this.setState({
-                directions: result
-              });
-              this.findDistance();
-            } else {
-              console.error(`error fetching directions ${result}`);
-            }
-          }
-        );
-
+  render() {
+    const stylesArr = [
+      {
+          "stylers": [
+              {
+                  "saturation": 100
+              },
+              {
+                  "gamma": 0.6
+              }
+          ]
       }
+  ];
 
-      render() {
-        const GoogleMapExample = withGoogleMap(props => (
-          <GoogleMap
-            defaultCenter={{ lat: 33.4274, lng: -117.6126 }}
-            defaultZoom={13}
-          >
-            <DirectionsRenderer
-              directions={this.state.directions}
-            />
-          </GoogleMap>
+    const GoogleMapExample = withGoogleMap(props => (
+      <GoogleMap
+        defaultCenter={{ lat: 33.4274, lng: -117.6126 }}
+        defaultZoom={10}
+        defaultOptions={{ styles: stylesArr }}
+      >
+        <DirectionsRenderer
+          directions={this.state.directions}
+        />
+        <DistanceDisplay 
+        distance={this.state.distance}
+        duration={this.state.duration}
+        />
+      </GoogleMap>
 
-        ));
+    ));
 
-        return (
-          <div>
-            <GoogleMapExample
-              containerElement={<div style={{ height: `750px`, width: "75%" }} />}
-              mapElement={<div style={{ height: `100%` }} />}
-            />
-            {/* <DistanceDisplay /> */}
-          </div>
-        );
-      }
-    }
-
+    return (
+      <div>
+        <GoogleMapExample
+          containerElement={<div style={{ height: `700px`, width: "70%" }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+      </div>
+    );
+  }
+}
 
 
-    export default Directions;
+
+export default Directions;
