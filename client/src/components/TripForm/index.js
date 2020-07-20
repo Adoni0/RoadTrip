@@ -89,6 +89,31 @@ class TripForm extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
+    API.getAllTripsByDestination(this.state.destination).then(res => {
+      console.log('Client findAllTripsByDestination: ');
+      console.log(res.data);
+
+      const usersArr = [];
+
+      res.data.forEach(data => {
+        if (!usersArr.includes(data.userId)) {
+          usersArr.push(data.userId);
+        }
+      })
+
+      console.log('users: ');
+      console.log(usersArr);
+
+      this.props.socket.emit("incoming data", {
+        tripData: {
+          tripName: this.state.tripName,
+          destination: this.state.destination,
+          numOfPlans: res.data.length,
+          numOfUsers: usersArr.length
+        }
+      })
+    })
+
     if (this.props.formType === 'new') {
       API.saveTrip({
         tripName: this.state.tripName,
@@ -106,21 +131,18 @@ class TripForm extends Component {
           console.log('this.state.tripName');
           console.log(this.state.tripName);
 
-          API.getAllTripsByDestination(this.state.destination).then(res => {
-            console.log('Client findAllTripsByDestination: ');
-            console.log(res.data);
-          })
-
-          this.props.socket.emit("incoming data", {
-            tripData: {
-              tripName: this.state.tripName,
-              destination: this.state.destination
-            }
-          })
+          // this.props.socket.emit("incoming data", {
+          //   tripData: {
+          //     tripName: this.state.tripName,
+          //     destination: this.state.destination
+          //   }
+          // })
 
           const savedTripIds = res.data.trips;
+
           // Tells react router to change url
-          this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
+          // PUT THIS BACK LATER!!!!!!
+          // this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
         })
         .catch(err => console.log(err));
 

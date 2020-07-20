@@ -7,8 +7,10 @@ module.exports = {
     console.log('tripController req.query:');
     console.log(req.query);
     console.log('tripController destination:' + destination);
+
     db.Trip
-      .find({ name: destinationReg })
+      .find({ destination: destinationReg })
+      // .find({ destination: /napa, ca/i })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },

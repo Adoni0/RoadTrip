@@ -17,7 +17,7 @@ class Notification extends Component {
           this.setState({
             show: false
           })
-        }, 10000);
+        }, 15000);
       }
     }
   }
@@ -30,6 +30,16 @@ class Notification extends Component {
             {`${this.props.socketData.tripData.tripName} `}
           </span>
           has been saved!
+          <br/>
+          <span className="title">
+            {`${this.props.socketData.tripData.numOfPlans} `}
+          </span>
+          plans have the same destination!!
+          <br/>
+          <span className="title">
+            {`${this.props.socketData.tripData.numOfUsers} `}
+          </span>
+          people are going to the same destination!!
         </p>
         : ""
     )
