@@ -42,7 +42,7 @@ class App extends Component {
 
   loadTrips = () => {
     const userId = this.state.userId;
-    API.getAllTrips(userId)
+    API.getAllTripsByUser(userId)
       .then(res => {
         console.log(res.data);
         this.setState({ allTrips: res.data.trips });

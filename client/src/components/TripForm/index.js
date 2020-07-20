@@ -106,6 +106,11 @@ class TripForm extends Component {
           console.log('this.state.tripName');
           console.log(this.state.tripName);
 
+          API.getAllTripsByDestination(this.state.destination).then(res => {
+            console.log('Client findAllTripsByDestination: ');
+            console.log(res.data);
+          })
+
           this.props.socket.emit("incoming data", {
             tripData: {
               tripName: this.state.tripName,

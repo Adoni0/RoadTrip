@@ -1,8 +1,15 @@
 import axios from 'axios';
 
 export default {
-  getAllTrips: function(userId) {
+  getAllTripsByUser: function(userId) {
     return axios.get(`/api/users/${userId}`);
+  },
+  getAllTripsByDestination: function(destination) {
+    return axios.get('/api/trips', {
+      params: {
+        destination: destination
+      }
+    });
   },
   getTrip: function(tripId) {
     return axios.get(`/api/trips/${tripId}`);
