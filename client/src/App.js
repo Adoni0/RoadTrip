@@ -17,14 +17,15 @@ class App extends Component {
     allTrips: []
   }
 
-  handleSetState(userID){
-    //userId = userID;
   socketURL =
     process.env.NODE_ENV === 'production'
       ? window.location.hostname
       : 'http://localhost:3001';
 
   socket = io.connect(this.socketURL, {secure: true});
+
+  handleSetState(userID){
+    //userId = userID;
   }
 
   componentDidMount() {
