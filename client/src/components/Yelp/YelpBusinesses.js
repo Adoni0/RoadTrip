@@ -103,11 +103,9 @@ class YelpBusinesses extends React.Component {
     render() {
         return (
             this.state.stops.map((stop) => {
-                console.log(stop);
-                console.log(this.state.yelpBusinesses);
                 return (
                     <div>
-                        <h2 className="text-uppercase text-center">Stop @ {stop}</h2>
+                        <h2 className="text-capitalize text-center mb-4">Route stop: {stop}</h2>
                         <div className="row row-cols-1 row-cols-md-2" style={this.rowStyle}>
                             {/* console.log(this.isYelpBusinessesEmpty()); */}
                             {!this.isYelpBusinessesEmpty(this.state.yelpBusinesses) ? this.state.yelpBusinesses[stop].map((business) => {
@@ -116,7 +114,7 @@ class YelpBusinesses extends React.Component {
                                 return (
                                     <div className="col mb-4" style={this.cardStyle}>
                                         <div className="card">
-                                            <img src={business.image_url} className="card-img-top max-width:100%" width="350" height="350" alt={business.name} />
+                                            <img src={business.image_url} className="card-img-top max-width:100%" width="300" height="300" alt={business.name} />
                                             <div className="card-body">
                                                 <h5 className="card-title"><u>{business.name}</u></h5>
                                                 <p className="card-text lead">Reviews: {business.review_count}</p>
