@@ -16,6 +16,8 @@ class YelpBusinesses extends React.Component {
                     [location]: res.data
                 }
             });
+            console.log("line 19");
+            console.log(this.state.yelpBusinesses);
         });
     }
 
@@ -41,11 +43,12 @@ class YelpBusinesses extends React.Component {
     render() {
         return (
             this.state.stops.map((stop) => {
+                console.log(stop);
                 return (
                     <div>
                         <h2 className="text-secondary">{stop}</h2>
                         <div className="row row-cols-1 row-cols-md-2" style={this.rowStyle}>
-                            {this.state.yelpBusinesses[stop].map(business => {
+                            {/* {stop.map(business => {
                                 return (
                                     <div>
                                         <h3>{business.name}</h3>
@@ -54,7 +57,7 @@ class YelpBusinesses extends React.Component {
                                         <a href={business.url} target="_blank">{business.name}</a>
                                     </div>
                                 )
-                            })}
+                            })} */}
                         </div>
                     </div>
                 )
