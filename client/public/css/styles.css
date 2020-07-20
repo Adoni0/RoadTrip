@@ -77,6 +77,10 @@ h3 {
   margin: 2rem 0;
 }
 
+.hide {
+  display: none;
+}
+
 
 
 @media screen and (min-width: 601px) {

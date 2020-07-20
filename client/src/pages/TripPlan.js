@@ -2,21 +2,27 @@ import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import Gmaps from '../components/Gmaps/';
 import API from '../utils/API';
-import GoogleMap from 'google-distance-matrix';
+
 
 class TripPlan extends Component {
 
   state = {
     origin: '',
     destination: '',
+    stops: []
   }
 
   grabTravelValues = (id) => {
 
     API.getTrip(id)
       .then(res => {
-        // console.log(res.data);
-        this.setState({ origin: res.data.origin, destination: res.data.destination })
+
+        this.setState({
+          origin: res.data.origin,
+          destination: res.data.destination,
+          stops: res.data.stops.placesOfStops
+        });
+
       })
 
   }
@@ -39,6 +45,7 @@ class TripPlan extends Component {
           inputOrigin={this.state.origin}
           inputDestination={this.state.destination}
           allTrips={this.props.allTrips}
+          stops={this.state.stops}
         />
       </Container>
     );

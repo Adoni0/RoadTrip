@@ -78,6 +78,7 @@ class DistanceDisplay extends React.Component {
         );
     }
 
+
 }
 
 export default DistanceDisplay;

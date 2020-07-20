@@ -136,7 +136,7 @@ class Directions extends React.Component {
         />
         <DistanceDisplay
           inputDestination={this.state.destination}
-          inputOrigin={this.state.origin}
+          inputOrigin={this.storigin}
           distance={this.state.distance}
           duration={this.state.duration}
         />

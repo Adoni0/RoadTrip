@@ -2,16 +2,26 @@ import React, { Component } from 'react';
 import { List, ListItem } from "../List";
 import { DeleteBtn, EditBtn, ViewBtn } from "../Btn";
 import API from "../../utils/API";
+import TripForm from "../TripForm";
+import "../Form/style.css";
 
 class TripsList extends Component {
-  handleEdit = (id, tripData) => {
-    return () => {
-      // Show Edit form
+  state = {
+    showEditForm: false,
+    selectedTripData: {}
+  }
 
-      // API.updateTrip(id, tripData)
-      //   .then(res => this.props.loadTrips())
-      //   .catch(err => console.log(err));
+  handleEdit = (trip) => {
+    return () => {
+      console.log('handleEdit!!');
+      this.setState({
+        showEditForm: true,
+        selectedTripData: trip
+      })
     }
+    // API.updateTrip(id, tripData)
+    //   .then(res => this.props.loadTrips())
+    //   .catch(err => console.log(err));
   }
 
   handleDelete = id => {
@@ -20,6 +30,12 @@ class TripsList extends Component {
         .then(res => this.props.loadTrips())
         .catch(err => console.log(err));
     }
+  }
+
+  hideEditForm = () => {
+    this.setState({
+      showEditForm: false
+    })
   }
 
   render() {
@@ -34,7 +50,7 @@ class TripsList extends Component {
                 <p>{trip._id}</p>
                 <div className="btns-container">
                   <ViewBtn link={`/trip-plans/${trip._id}`} />
-                  <EditBtn editHandler={this.handleEdit(trip._id)} />
+                  <EditBtn editHandler={this.handleEdit(trip)} />
                   <DeleteBtn deleteHandler={this.handleDelete(trip._id)} />
                 </div>
               </ListItem>
@@ -44,6 +60,23 @@ class TripsList extends Component {
           <p className="message">There is no saved trip plans.</p>
         )
         }
+
+        {this.state.showEditForm ? (
+          <>
+            <div className="form-modal">
+              <TripForm
+                {...this.props}
+                selectedTripData={this.state.selectedTripData}
+                formType='edit'
+              />
+              <div className="close-btn" onClick={this.hideEditForm}>
+                <ion-icon name="close-circle"></ion-icon>
+              </div>
+            </div>
+            <div className="dark-bg" onClick={this.hideEditForm}>
+            </div>
+          </>
+        ) : null}
       </>
     )
   }
