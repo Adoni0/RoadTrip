@@ -25,10 +25,7 @@
   "homepage": "https://github.com/Adoni0/project-3#readme",
   "dependencies": {
     "axios": "^0.19.2",
-<<<<<<< HEAD
     "bcrypt": "^5.0.0",
-=======
->>>>>>> master
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "google-distance-matrix": "^1.1.1",
