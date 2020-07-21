@@ -1,31 +1,27 @@
-
 const axios = require("axios");
 
+let yelp = axios.create({
+    baseURL: "https://api.yelp.com/v3/",
+    headers: {
+        Authorization: `Bearer ${process.env.YELP_API_KEY}`,
+        "Content-type": "application/json",
+    },
+})
 
 module.exports = {
-    getYelpAPI: (req, res) => {
-        let YELP_API_KEY = process.env.YELP_API_KEY;
+    getBusinesses: (req, res) => {
 
-        let yelp = axios.create({
-            baseURL: "https://api.yelp.com/v3/",
-            headers: {
-                Authorization: `Bearer ${YELP_API_KEY}`,
-                "Content-type": "application/json",
-            },
-        })
         yelp("/businesses/search", {
             params: {
-                location: "los angeles",
-                term: "food",
-                limit: 10
+                location: req.params.location,
+                term: "restaurants",
+                limit: 3
             }
         }).then(({ data }) => {
             let { businesses } = data
-            businesses.forEach((business) => {
-                console.log("Name: ", business.name)
-            })
-            console.log(businesses);
+            res.json(businesses);
+        }).catch((err) => {
+            res.status(500).json(err)
         })
-        res.end();
     }
 };
