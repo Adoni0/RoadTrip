@@ -89,30 +89,7 @@ class TripForm extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    API.getAllTripsByDestination(this.state.destination).then(res => {
-      console.log('Client findAllTripsByDestination: ');
-      console.log(res.data);
 
-      const usersArr = [];
-
-      res.data.forEach(data => {
-        if (!usersArr.includes(data.userId)) {
-          usersArr.push(data.userId);
-        }
-      })
-
-      console.log('users: ');
-      console.log(usersArr);
-
-      this.props.socket.emit("incoming data", {
-        tripData: {
-          tripName: this.state.tripName,
-          destination: this.state.destination,
-          numOfPlans: res.data.length,
-          numOfUsers: usersArr.length
-        }
-      })
-    })
 
     if (this.props.formType === 'new') {
       API.saveTrip({
@@ -127,22 +104,39 @@ class TripForm extends Component {
         userId: this.props.userId
       })
         .then(res => {
-          console.log('Trip saved!');
-          console.log('this.state.tripName');
-          console.log(this.state.tripName);
+          console.log(`"${this.state.tripName}" Trip saved!`);
 
-          // this.props.socket.emit("incoming data", {
-          //   tripData: {
-          //     tripName: this.state.tripName,
-          //     destination: this.state.destination
-          //   }
-          // })
+          API.getAllTripsByDestination(this.state.destination).then(res => {
+            console.log('Client findAllTripsByDestination: ');
+            console.log(res.data);
+
+            const usersArr = [];
+
+            res.data.forEach(data => {
+              if (!usersArr.includes(data.userId)) {
+                usersArr.push(data.userId);
+              }
+            })
+
+            console.log('users: ');
+            console.log(usersArr);
+
+            this.props.socket.emit("incoming data", {
+              tripData: {
+                tripName: this.state.tripName,
+                destination: this.state.destination,
+                numOfPlans: res.data.length,
+                numOfUsers: usersArr.length
+              }
+            })
+          })
 
           const savedTripIds = res.data.trips;
+          console.log('line134')
+          console.log(res.data)
 
           // Tells react router to change url
-          // PUT THIS BACK LATER!!!!!!
-          // this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
+          this.props.history.push(`/trip-plans/${savedTripIds[savedTripIds.length - 1]}`);
         })
         .catch(err => console.log(err));
 

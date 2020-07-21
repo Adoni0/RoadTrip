@@ -22,7 +22,28 @@ class Notification extends Component {
     }
   }
 
+  setUnit = (unit, num) => {
+    if (unit === 'person') {
+      if (num > 1) {
+        return 'people are'
+      } else {
+        return 'person is'
+      }
+    }
+
+    if (unit === 'plan') {
+      if (num > 1) {
+        return 'plans have'
+      } else {
+        return 'plan has'
+      }
+    }
+  }
+
   render() {
+    const numOfPlansWithSameDest = this.state.show && this.props.socketData.tripData.numOfPlans;
+    const numOfOtherUsersWithSameDest = this.state.show && this.props.socketData.tripData.numOfUsers - 1;
+
     return (
       this.state.show ?
         <p className="notification">
@@ -32,16 +53,20 @@ class Notification extends Component {
           has been saved!
           <br/>
           <span className="title">
-            {`${this.props.socketData.tripData.numOfPlans} `}
+            {`${numOfPlansWithSameDest} `}
           </span>
-          plans have the same destination!!
+          {this.setUnit('plan', numOfPlansWithSameDest)} the same destination!!
           <br/>
-          <span className="title">
-            {`${this.props.socketData.tripData.numOfUsers} `}
-          </span>
-          people are going to the same destination!!
+          {numOfOtherUsersWithSameDest > 0 ? (
+            <>
+              <span className="title">
+                {`${numOfOtherUsersWithSameDest} `}
+              </span>
+              more {this.setUnit('person', numOfOtherUsersWithSameDest)} going to the same destination!!
+            </>
+            ) : ''}
         </p>
-        : ""
+        : ''
     )
   }
 }
