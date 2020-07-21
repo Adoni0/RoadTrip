@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import {FormBtn, Input, Select} from '../Form';
+import { FormBtn, Input, Select } from '../Form';
 import API from '../../utils/API';
 
+
 class TripForm extends Component {
+
   state = {
     tripId: '',
     tripName: '',
@@ -12,6 +14,7 @@ class TripForm extends Component {
     placesOfStops: [],
     budget: 1
   }
+
 
   componentDidMount() {
     const tripData = this.props.selectedTripData;
@@ -139,7 +142,7 @@ class TripForm extends Component {
 
   stopIndexArr = num => {
     const indexArr = [];
-    for (let i = 1; i <= num; i++ ) {
+    for (let i = 1; i <= num; i++) {
       indexArr.push(i);
     }
     return indexArr;

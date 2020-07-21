@@ -47,7 +47,7 @@ class Directions extends React.Component {
           var results = response.rows[i].elements;
           for (var j = 0; j < results.length; j++) {
             var element = results[j];
-            var distance = element.distance ? element.distance.text : "no distance returned";
+            var distance = element.distance ? element.distance.text : "Invalid origin or destination";
             var duration = element.duration ? element.duration.text : "no duration returned";
 
             // console.log("Distance: " + distance);
