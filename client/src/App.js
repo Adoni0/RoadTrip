@@ -23,7 +23,7 @@ class App extends Component {
       ? window.location.hostname
       : 'http://localhost:3001';
 
-  socket = io.connect(this.socketURL, {secure: true});
+  socket = io.connect(this.socketURL, { secure: true });
 
   componentDidMount() {
     // this.socket.on("outgoing data", data => {
@@ -59,10 +59,10 @@ class App extends Component {
               exact
               path="/"
               render={props => <Home {...props}
-              userId={this.state.userId}
-              loadTrips={this.loadTrips}
-              allTrips={this.state.allTrips}
-              socket={this.socket}/>}
+                userId={this.state.userId}
+                loadTrips={this.loadTrips}
+                allTrips={this.state.allTrips}
+                socket={this.socket} />}
             />
 
             <Route
@@ -74,7 +74,7 @@ class App extends Component {
             <Route
               exact
               path="/trip-plans/:id"
-              component={TripPlan}
+              render={() => <TripPlan allTrips={this.state.allTrips} />}
             />
 
             <Route component={NoMatch} />

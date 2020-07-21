@@ -14,6 +14,9 @@ export default {
   getTrip: function(tripId) {
     return axios.get(`/api/trips/${tripId}`);
   },
+  getYelpBusinesses: function (location) {
+    return axios.get(`/api/yelp/businesses/${location}`);
+  },
   saveTrip: function(tripData) {
     return axios.post('/api/trips', tripData);
   },

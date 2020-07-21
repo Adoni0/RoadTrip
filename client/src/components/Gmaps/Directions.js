@@ -2,10 +2,13 @@
 import React from "react";
 import {
   withGoogleMap,
+  withScriptjs,
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
 import DistanceDisplay from '../DistanceDisplay';
+import axios from 'axios';
+import API from '../../utils/API';
 // import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 // import 'react-google-places-autocomplete/dist/index.min.css';
 
@@ -36,29 +39,30 @@ class Directions extends React.Component {
   };
 
 
-     callback = (response, status) => {
-      if (status !== 'OK') {
-        alert('Error was: ' + status);
-      } else {
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
+  callback = (response, status) => {
+    if (status !== 'OK') {
+      alert('Error was: ' + status);
+    } else {
+      // console.log(response);
+      var origins = response.originAddresses;
+      var destinations = response.destinationAddresses;
 
-        for (var i = 0; i < origins.length; i++) {
-          var results = response.rows[i].elements;
-          for (var j = 0; j < results.length; j++) {
-            var element = results[j];
-            var distance = element.distance ? element.distance.text : "no distance returned";
-            var duration = element.duration ? element.duration.text : "no duration returned";
+      for (var i = 0; i < origins.length; i++) {
+        var results = response.rows[i].elements;
+        for (var j = 0; j < results.length; j++) {
+          var element = results[j];
+          var distance = element.distance ? element.distance.text : "Invalid origin or destination";
+          var duration = element.duration ? element.duration.text : "no duration returned";
 
-            // console.log("Distance: " + distance);
-            // console.log("Duration: " + duration);
-            this.setState({ distance: distance, duration: duration })
-          }
-
+          // console.log("Distance: " + distance);
+          // console.log("Duration: " + duration);
+          this.setState({ distance: distance, duration: duration })
         }
+
       }
     }
-    
+  }
+
 
   componentDidMount() {
 
@@ -66,14 +70,18 @@ class Directions extends React.Component {
     const origin = this.props.inputOrigin;
     const destination = this.props.inputDestination;
 
+    // this.setState({
+    //   origin,
+    //   destination
+    // });
+
     directionsService.route(
       {
         origin: origin,
         destination: destination,
         waypoints: this.props.stops.map(stop => {
-          return {location: stop, stopover: true}
+          return { location: stop, stopover: true }
         }),
-        
         travelMode: google.maps.TravelMode.DRIVING
       },
       (result, status) => {
@@ -101,16 +109,16 @@ class Directions extends React.Component {
   render() {
     const stylesArr = [
       {
-          "stylers": [
-              {
-                  "saturation": 100
-              },
-              {
-                  "gamma": 0.6
-              }
-          ]
+        "stylers": [
+          {
+            "saturation": 100
+          },
+          {
+            "gamma": 0.6
+          }
+        ]
       }
-  ];
+    ];
 
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
@@ -121,9 +129,11 @@ class Directions extends React.Component {
         <DirectionsRenderer
           directions={this.state.directions}
         />
-        <DistanceDisplay 
-        distance={this.state.distance}
-        duration={this.state.duration}
+        <DistanceDisplay
+          // inputDestination={this.state.destination}
+          // inputOrigin={this.storigin}
+          distance={this.state.distance}
+          duration={this.state.duration}
         />
       </GoogleMap>
 
