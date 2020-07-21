@@ -51,11 +51,11 @@ class Directions extends React.Component {
         var results = response.rows[i].elements;
         for (var j = 0; j < results.length; j++) {
           var element = results[j];
-          var distance = element.distance.text;
-          var duration = element.duration.text;
+          var distance = element.distance ? element.distance.text : "Invalid origin or destination";
+          var duration = element.duration ? element.duration.text : "no duration returned";
 
-          console.log("Distance: " + distance);
-          console.log("Duration: " + duration);
+          // console.log("Distance: " + distance);
+          // console.log("Duration: " + duration);
           this.setState({ distance: distance, duration: duration })
         }
 
@@ -70,23 +70,18 @@ class Directions extends React.Component {
     const origin = this.props.inputOrigin;
     const destination = this.props.inputDestination;
 
-    this.setState({
-      origin,
-      destination
-    });
+    // this.setState({
+    //   origin,
+    //   destination
+    // });
 
     directionsService.route(
       {
         origin: origin,
         destination: destination,
-        // waypoints: [
-        //   {
-        //     location: 'Santa Clarita, CA',
-        //     stopover: true
-        //   }, {
-        //     location: 'Anaheim, CA',
-        //     stopover: true
-        //   }],
+        waypoints: this.props.stops.map(stop => {
+          return { location: stop, stopover: true }
+        }),
         travelMode: google.maps.TravelMode.DRIVING
       },
       (result, status) => {
@@ -128,15 +123,15 @@ class Directions extends React.Component {
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         defaultCenter={{ lat: 33.4274, lng: -117.6126 }}
-        defaultZoom={13}
+        defaultZoom={10}
         defaultOptions={{ styles: stylesArr }}
       >
         <DirectionsRenderer
           directions={this.state.directions}
         />
         <DistanceDisplay
-          inputDestination={this.state.destination}
-          inputOrigin={this.storigin}
+          // inputDestination={this.state.destination}
+          // inputOrigin={this.storigin}
           distance={this.state.distance}
           duration={this.state.duration}
         />
