@@ -6,16 +6,6 @@ import 'react-google-places-autocomplete/dist/index.min.css';
 import "./style.css";
 
 
-{/* <GooglePlacesAutocomplete
-            onSelect={console.log}
-            id="origin"
-            value={this.state.origin}
-            // onChange={this.handleInputChange}
-            name="origin"
-            label="Where are you departing from?"
-            placeholder="Enter your starting point."
-          /> */}
-
 class TripForm extends Component {
   state = {
     tripId: '',
@@ -65,23 +55,23 @@ class TripForm extends Component {
     <>
       {numOfStops ?
         this.stopIndexArr(numOfStops).map(num =>
-          <Input
-            key={`stop${num}`}
-            id={`stop${num}`}
-            value={this.state.placesOfStops[num - 1]}
-            onChange={this.handleAddStopPlaces}
-            name={`stop${num}`} // if the name gets changed, it'll affect handleAddStopPlaces logic!!
-            label={`Stop${num} Location`}
-            placeholder="Enter your stop location."
-          />
-          // <GooglePlacesAutocomplete
+          // <Input
           //   key={`stop${num}`}
-          //   onSelect={({ description: placesOfStops }) => { this.setState( { placesOfStops: placesOfStops[num - 1] })}}
-          //   onChange={this.handleAddStopPlaces} 
           //   id={`stop${num}`}
-          //   name={`stop${num}`}
+          //   value={this.state.placesOfStops[num - 1]}
+          //   onChange={this.handleAddStopPlaces}
+          //   name={`stop${num}`} // if the name gets changed, it'll affect handleAddStopPlaces logic!!
+          //   label={`Stop${num} Location`}
           //   placeholder="Enter your stop location."
           // />
+          <GooglePlacesAutocomplete
+            key={`stop${num}`}
+            onSelect={({ description: placeOfStop }) => { this.handleAddStopPlaces(placeOfStop, num) }}
+            // onChange={this.handleAddStopPlaces} 
+            id={`stop${num}`}
+            name={`stop${num}`}
+            placeholder="Enter your stop location."
+          />
         ) : null
       }
     </>
@@ -94,19 +84,31 @@ class TripForm extends Component {
     })
   }
 
-  handleAddStopPlaces = event => {
-    const { name, value } = event.target;
+  handleAddStopPlaces = (placeOfStop, num) => {
     const newPlacesOfStops = this.state.placesOfStops;
-    const index = parseInt(name.split('stop')[1]) - 1;
-    newPlacesOfStops[index] = value;
+    const index = parseInt(num) - 1;
+    newPlacesOfStops[index] = placeOfStop;
 
     this.setState({
       placesOfStops: newPlacesOfStops
     })
-
     console.log('this.state.placesOfStops: ');
     console.log(this.state.placesOfStops);
   }
+
+  // handleAddStopPlaces = event => {
+  //   const { name, value } = event.target;
+  //   const newPlacesOfStops = this.state.placesOfStops;
+  //   const index = parseInt(name.split('stop')[1]) - 1;
+  //   newPlacesOfStops[index] = value;
+
+  //   this.setState({
+  //     placesOfStops: newPlacesOfStops
+  //   })
+
+  //   console.log('this.state.placesOfStops: ');
+  //   console.log(this.state.placesOfStops);
+  // }
 
   sendTripNotification = () => {
     API.getAllTripsByDestination(this.state.destination).then(res => {

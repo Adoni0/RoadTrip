@@ -2,36 +2,15 @@
 import React from "react";
 import {
   withGoogleMap,
-  withScriptjs,
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
 import DistanceDisplay from '../DistanceDisplay';
-import axios from 'axios';
-import API from '../../utils/API';
-// import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-// import 'react-google-places-autocomplete/dist/index.min.css';
 
-// originRef = React.createRef();
-
-// this.setState({ origin: this.originRef.current.value })
-
-{/* <GooglePlacesAutocomplete
-            onSelect={console.log}
-            id="origin"
-            value={this.state.origin}
-            // onChange={this.handleInputChange}
-            ref={this.originRef}
-            name="origin"
-            label="Where are you departing from?"
-            placeholder="Enter your starting point."
-          /> */}
 
 class Directions extends React.Component {
   state = {
     directions: null,
-    // origin: { lat: 34.0522, lng: -118.2437 },
-    // destination: { lat: 32.7157, lng: -117.1611 }
     origin: 'Cork, Ireland',
     destination: "Dublin, Ireland",
     distance: '',
