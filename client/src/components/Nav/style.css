@@ -1,0 +1,38 @@
+.navbar {
+    width: 100%;
+    padding: .5rem 2rem;
+    background: var(--color-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.navbar ul {
+    display: flex;
+}
+
+.navbar li:not(:last-child) {
+    margin-right: 2rem;
+}
+
+.navbar a {
+    font-size: 1.5rem;
+    color: var(--color-white);
+    font-weight: 300;
+}
+
+.navbar a:hover,
+.navbar a:focus {
+    font-weight: 500;
+}
+
+.navbar a.active {
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-white);
+}
