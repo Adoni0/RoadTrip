@@ -1,0 +1,41 @@
+.navbar {
+    width: 100%;
+    padding: .5rem 2rem;
+    background: var(--color-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a.navbar-brand {
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.navbar ul {
+    display: flex;
+    margin: 0;
+}
+
+.navbar li:not(:last-child) {
+    margin-right: 2rem;
+}
+
+.navlink:active,
+.navlink:visited {
+    font-size: 1.5rem;
+    color: var(--color-white);
+    font-weight: 300;
+}
+
+.navlink:hover,
+.navlink:focus {
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.navlink.active {
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-white);
+}
