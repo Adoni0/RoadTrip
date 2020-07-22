@@ -4,6 +4,7 @@ import { DeleteBtn, EditBtn, ViewBtn } from "../Btn";
 import API from "../../utils/API";
 import TripForm from "../TripForm";
 import "../Form/style.css";
+import "./style.css";
 
 class TripsList extends Component {
   state = {
@@ -43,9 +44,9 @@ class TripsList extends Component {
       <>
         {this.props.allTrips.length ? (
           <List>
-            {this.props.allTrips.map(trip => (
+            {this.props.allTrips.reverse().map(trip => (
               <ListItem key={`tripID-${trip._id}`}>
-                <p>{trip.tripName}</p>
+                <p className="trip-name">{trip.tripName}</p>
                 <p>Destination: {trip.destination}</p>
                 <p>{trip._id}</p>
                 <div className="btns-container">
