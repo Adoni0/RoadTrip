@@ -9,7 +9,8 @@ class TripPlan extends Component {
   state = {
     origin: '',
     destination: '',
-    stops: []
+    stops: [],
+    budget: ''
   }
 
   grabTravelValues = (id) => {
@@ -20,7 +21,8 @@ class TripPlan extends Component {
         this.setState({
           origin: res.data.origin,
           destination: res.data.destination,
-          stops: res.data.stops.placesOfStops
+          stops: res.data.stops.placesOfStops,
+          budget: res.data.stops.budget
         });
 
       })
