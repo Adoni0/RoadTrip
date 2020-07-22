@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import {FormBtn, Input, Select} from '../Form';
 import API from '../../utils/API';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import 'react-google-places-autocomplete/dist/index.min.css';
+import "./style.css";
+
+
+{/* <GooglePlacesAutocomplete
+            onSelect={console.log}
+            id="origin"
+            value={this.state.origin}
+            // onChange={this.handleInputChange}
+            name="origin"
+            label="Where are you departing from?"
+            placeholder="Enter your starting point."
+          /> */}
 
 class TripForm extends Component {
   state = {
@@ -60,6 +74,14 @@ class TripForm extends Component {
             label={`Stop${num} Location`}
             placeholder="Enter your stop location."
           />
+          // <GooglePlacesAutocomplete
+          //   key={`stop${num}`}
+          //   onSelect={({ description: placesOfStops }) => { this.setState( { placesOfStops: placesOfStops[num - 1] })}}
+          //   onChange={this.handleAddStopPlaces} 
+          //   id={`stop${num}`}
+          //   name={`stop${num}`}
+          //   placeholder="Enter your stop location."
+          // />
         ) : null
       }
     </>
@@ -194,22 +216,36 @@ class TripForm extends Component {
           label="Your Trip Name"
           placeholder="Enter your trip name."
         />
-        <Input
+        {/* <Input
           id="origin"
           value={this.state.origin}
           onChange={this.handleInputChange}
           name="origin"
           label="Where are you departing from?"
           placeholder="Enter your starting point."
-        />
-        <Input
+        /> */}
+        <label className="goog-label">Where are you departing from?</label>
+        <GooglePlacesAutocomplete
+            onSelect={({ description: origin }) => { this.setState( { origin })}} 
+            id="origin"
+            name="origin"
+            placeholder="Enter your starting point."
+          />
+        {/* <Input
           id="destination"
           value={this.state.destination}
           onChange={this.handleInputChange}
           name="destination"
           label="Where are you looking to go?"
           placeholder="Enter your destination."
-        />
+        /> */}
+        <label className="goog-label">Where are you looking to go?</label>
+        <GooglePlacesAutocomplete
+            onSelect={({ description: destination }) => { this.setState( { destination })}} 
+            id="destination"
+            name="destination"
+            placeholder="Enter your destination."
+          />
         <Select
           id="numOfStops"
           value={this.state.numOfStops}
