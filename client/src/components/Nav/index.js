@@ -6,15 +6,18 @@ class Nav extends Component {
   render() {
     return (
       <nav className="navbar">
-        <div className="navbar-brand">RoadTripPlanner</div>
+        <NavLink exact to="/" className="navbar-brand">
+          RoadTripPlanner
+        </NavLink>
+
         <ul>
           <li>
-            <NavLink exact to="/" activeClassName="active">
+            <NavLink exact to="/" className="navlink" activeClassName="active">
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="/trip-plans" activeClassName="active">
+            <NavLink exact to="/trip-plans" className="navlink" activeClassName="active">
               Saved Trips
             </NavLink>
           </li>

@@ -3,6 +3,7 @@ import { Section, Container } from "../components/Grid";
 import TripsList from "../components/TripsList";
 import TripForm from "../components/TripForm";
 import "../components/List/style.css";
+import "./style.css";
 
 
 class Home extends Component {
@@ -22,11 +23,13 @@ class Home extends Component {
 
         <Section>
           <h2>Your Road Trip Plans List</h2>
-          <TripsList
-            {...this.props}
-            allTrips={this.props.allTrips}
-            loadTrips={this.props.loadTrips}
-          />
+          <div className="trip-list-container-short">
+            <TripsList
+              {...this.props}
+              allTrips={this.props.allTrips}
+              loadTrips={this.props.loadTrips}
+            />
+          </div>
         </Section>
       </Container>
     );
