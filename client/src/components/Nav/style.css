@@ -22,6 +22,10 @@ a.navbar-brand {
     margin-right: 2rem;
 }
 
+a.navlink {
+    color: var(--color-white);
+}
+
 .navlink:active,
 .navlink:visited {
     font-size: 1.5rem;
