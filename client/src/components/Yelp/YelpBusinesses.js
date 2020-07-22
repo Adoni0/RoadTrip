@@ -16,8 +16,6 @@ class YelpBusinesses extends React.Component {
                     [location]: res.data
                 }
             });
-            console.log("line 19");
-            console.log(this.state.yelpBusinesses);
         });
     }
 
@@ -119,7 +117,7 @@ class YelpBusinesses extends React.Component {
                                                 <h5 className="card-title"><u>{business.name}</u></h5>
                                                 <p className="card-text lead">Reviews: {business.review_count}</p>
                                                 <p className="card-text lead">Rating: {business.rating}</p>
-                                                <a href={business.url} target="_blank" >Click here for more info...</a>
+                                                <p className="card-text lead"><a href={business.url} target="_blank" >Click here for more info...</a></p>
                                             </div>
                                         </div>
                                     </div>
