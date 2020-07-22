@@ -44,7 +44,6 @@ body {
   position: relative;
   font-size: 1.6rem;
   font-weight: 300;
-  background: var(--color-blue-light2);
 }
 
 a {
@@ -70,6 +69,16 @@ h3 {
   font-size: 2rem;
   font-weight: 500;
   color: var(--color-blue);
+}
+
+.bg-road {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-image: url("../images/bg-road.jpg");
+  background-position: center center;
+  background-size: cover;
+  overflow-y: scroll;
 }
 
 .message {
