@@ -10,6 +10,8 @@ class Login extends Component {
     super();
 
     this.state = {
+      user: null,
+      loggedIn: false,
       loginEmail:"",
       loginPassword:"",
       registerUsername: "",
@@ -35,11 +37,21 @@ class Login extends Component {
         password: this.state.loginPassword,
       })
       .then(res => {
+        if(res.data._id){
+          this.setState({
+            user: res.data._id,
+            redirect: true,
+            loggedIn: true,
+            loginEmail:res.data.email,
+            loginPassword:res.data.password
+          });
+        }
         console.log('User logged in!');
-        APP.handleSetState(res.data.id);
+        //APP.handleSetState(res.data.id);
         // Redirect to the trips page
-        window.location.replace(`/`);
-    })
+        window.location.replace("/home");
+    }) 
+    .catch(err => console.log(err));
   }
 
     handleInputChange = (e) => {
@@ -67,9 +79,9 @@ class Login extends Component {
     }
   render(){
     return (
-      <div classname = "Container">
+      <div className = "Container">
       <div className="Login">
-        <form onSubmit={this.handleSubmitLogin}>
+        <form>
           <Input
               id="email"
               value={this.state.loginEmail}
@@ -93,7 +105,7 @@ class Login extends Component {
       </div>
 
   <div className="Register">
-  <form onSubmit={this.handleSubmitRegister}>
+  <form>
   <Input
         id="username"
         value={this.state.registerUsername}

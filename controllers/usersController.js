@@ -18,7 +18,14 @@ module.exports = {
   },
   findById: function(req, res){
     db.User
-    .findById(req.params.id)
+    .findById({_id: req.params.id})
+    .then(dbModel => req.json(dbModel))
+    .catch(err => res.json(err));
+  },
+  remove: function(req, res){
+    db.User
+    .findById({_id: req.params.id})
+    .then(dbModel => dbModel.remove())
     .then(dbModel => req.json(dbModel))
     .catch(err => res.json(err));
   },

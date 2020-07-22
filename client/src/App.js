@@ -19,13 +19,13 @@ class App extends Component {
 
   handleSetState(userID){
     //userId = userID;
-  socketURL =
-    process.env.NODE_ENV === 'production'
+  }
+  socketURL = process.env.NODE_ENV === 'production'
       ? window.location.hostname
       : 'http://localhost:3001';
 
   socket = io.connect(this.socketURL, {secure: true});
-  }
+  
 
   componentDidMount() {
     this.socket.on("outgoing data", data => {
@@ -55,14 +55,13 @@ class App extends Component {
         <>
           <Switch>
             <Route
-              exact
-              path="/"
-              component={Login}/>
+              exact path="/" component={Login}/>
             
             <Route exact path="/trip-plans" component={TripPlan} />
             <Route exact path="/trip-plans/:id" component={TripPlan} />
             <Route exact path="/home" render={props => 
-              <Home {...props} userId={this.state.userId} loadTrips={this.loadTrips} allTrips={this.state.allTrips} />}/>
+              <Home {...props} userId={this.state.userId} loadTrips={this.loadTrips} 
+              allTrips={this.state.allTrips} />}/>
             <Route component={NoMatch} />
           </Switch>
         </>

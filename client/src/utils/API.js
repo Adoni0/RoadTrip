@@ -22,6 +22,9 @@ export default {
   Login: function(userInfo){
     return axios.post(`/api/users/login`, userInfo);
   },
+  IsLoggedIn:function(){
+    return axios.get( `/api/users/home`)
+  },
   Logout: function(){
     return axios.post(`/api/users/logout`);
   }

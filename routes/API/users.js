@@ -12,7 +12,7 @@ router.route('/register')
 router.route('/logout')
     .post(usersController.logout);
 
-router.route('/login', function(req, res, next){
+router.post('/login', function(req, res, next){
   passport.authenticate("local", function(err, user){
       if(err){return next(err)}
       if(!user){
@@ -38,6 +38,11 @@ function userAuthenticated(req, res, next){
 router.get("/home", userAuthenticated, function(req, res, next){
   res.json({user: req.user, loggedIn: true});
 });
+
+router
+.route("/:id")
+.get(usersController.findById)
+.delete(usersController.remove);
 
 module.exports = router;
 
