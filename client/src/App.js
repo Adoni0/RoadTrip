@@ -3,8 +3,10 @@ import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 import Home from './pages/Home';
+import TripPlans from './pages/TripPlans';
 import TripPlan from './pages/TripPlan';
 import NoMatch from "./pages/NoMatch";
+import Nav from "./components/Nav";
 import Notification from "./components/Notification";
 
 import './App.css';
@@ -54,6 +56,7 @@ class App extends Component {
     return (
       <Router>
         <>
+          <Nav />
           <Switch>
             <Route
               exact
@@ -68,7 +71,11 @@ class App extends Component {
             <Route
               exact
               path="/trip-plans"
-              component={TripPlan}
+              render={props => <TripPlans {...props}
+                userId={this.state.userId}
+                loadTrips={this.loadTrips}
+                allTrips={this.state.allTrips}
+              />}
             />
 
             <Route
