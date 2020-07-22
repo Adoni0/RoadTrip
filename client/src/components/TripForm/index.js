@@ -86,6 +86,33 @@ class TripForm extends Component {
     console.log(this.state.placesOfStops);
   }
 
+  sendTripNotification = () => {
+    API.getAllTripsByDestination(this.state.destination).then(res => {
+      console.log('Client findAllTripsByDestination: ');
+      console.log(res.data);
+
+      const usersArr = [];
+
+      res.data.forEach(data => {
+        if (!usersArr.includes(data.userId)) {
+          usersArr.push(data.userId);
+        }
+      })
+
+      console.log('users: ');
+      console.log(usersArr);
+
+      this.props.socket.emit("incoming data", {
+        tripData: {
+          tripName: this.state.tripName,
+          destination: this.state.destination,
+          numOfPlans: res.data.length,
+          numOfUsers: usersArr.length
+        }
+      })
+    })
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
 
@@ -102,14 +129,9 @@ class TripForm extends Component {
         userId: this.props.userId
       })
         .then(res => {
-          console.log('Trip saved!');
-          console.log('this.state.tripName');
-          console.log(this.state.tripName);
+          console.log(`"${this.state.tripName}" Trip saved!`);
 
-          this.props.socket.emit("incoming data", {
-            tripName: this.state.tripName,
-            destination: this.state.destination
-          })
+          this.sendTripNotification();
 
           const savedTripIds = res.data.trips;
           // Tells react router to change url
@@ -130,6 +152,9 @@ class TripForm extends Component {
       })
         .then(res => {
           console.log('Trip updated!');
+
+          this.sendTripNotification();
+
           // Tells react router to change url
           this.props.history.push(`/trip-plans/${this.state.tripId}`);
         })

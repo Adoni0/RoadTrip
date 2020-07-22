@@ -44,8 +44,13 @@ io.on("connection", socket => {
     console.log(`Logging data, ${data}`);
 
     //Here we broadcast it out to all other sockets EXCLUDING the socket which sent us the data
-    socket.broadcast.emit('outgoing data', {
-      destination: data.destination
+    // socket.broadcast.emit('outgoing data', {
+    //   tripData: data.tripData
+    // });
+
+    // We send the data to everyone, including the sender.
+    io.emit('incoming data', {
+      tripData: data.tripData
     });
   });
 

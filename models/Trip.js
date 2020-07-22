@@ -6,8 +6,7 @@ var Schema = mongoose.Schema;
 var TripSchema = new Schema ({
   tripName: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   origin: {
     type: String,
@@ -17,10 +16,6 @@ var TripSchema = new Schema ({
     type: String,
     required: true
   },
-  // numberOfStops: {
-  //     type: Number,
-  //     required: true
-  // },
   stops: {
     numberOfStops: {
       type: Number,

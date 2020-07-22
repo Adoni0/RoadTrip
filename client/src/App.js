@@ -5,6 +5,7 @@ import API from "./utils/API";
 import Home from './pages/Home';
 import TripPlan from './pages/TripPlan';
 import NoMatch from "./pages/NoMatch";
+import Notification from "./components/Notification";
 
 import './App.css';
 
@@ -13,7 +14,8 @@ class App extends Component {
 
   state = {
     userId: '1', // This Id is temp
-    allTrips: []
+    allTrips: [],
+    socketData: ''
   }
 
   socketURL =
@@ -24,20 +26,23 @@ class App extends Component {
   socket = io.connect(this.socketURL, { secure: true });
 
   componentDidMount() {
-    this.socket.on("outgoing data", data => {
-      // this.setState({response: data})
-      // console.log( `The book "${this.state.response.title}" has been saved!` );
+    // this.socket.on("outgoing data", data => {
+    //   this.setState({socketData: data})
+    // })
+
+    this.socket.on("incoming data", data => {
+      this.setState({socketData: data})
 
       console.log('A trip is saved!');
       console.log(data);
-      console.log(`Trip Name: ${data.tripName}`);
-      console.log(`destination: ${data.destination}`);
+      console.log(`Trip Name: ${data.tripData.tripName}`);
+      console.log(`Destination: ${data.tripData.destination}`);
     })
   }
 
   loadTrips = () => {
     const userId = this.state.userId;
-    API.getAllTrips(userId)
+    API.getAllTripsByUser(userId)
       .then(res => {
         console.log(res.data);
         this.setState({ allTrips: res.data.trips });
@@ -74,6 +79,7 @@ class App extends Component {
 
             <Route component={NoMatch} />
           </Switch>
+          <Notification socketData={this.state.socketData} />
         </>
       </Router>
     )
