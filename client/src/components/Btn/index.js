@@ -43,4 +43,11 @@ export const ViewBtn = ({ link }) => {
   )
 }
 
+export const SubmitBtn = (props) => {
+  return (
+    <button className="btn btn-primary" onSubmit={props.onSubmit}>Submit</button>
+  )
+}
+
+
 

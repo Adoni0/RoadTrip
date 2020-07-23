@@ -1,84 +1,69 @@
 import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import { Input, Select, FormBtn } from "../components/Form";
-import { ViewBtn } from "../components/Btn";
+import { SubmitBtn } from "../components/Btn";
+import API from '../utils/API';
+import APP from "../App.js";
 
-export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-  
-    function validateForm() {
-      return email.length > 0 && password.length > 0;
-    }
-  
-    function handleSubmitLogin(event) {
-      event.preventDefault();
-    }
+class Login extends Component {
+  constructor() {
+    super();
 
-    function handleSubmitRegister(event){
-      event.preventDefault();
-    }
-  
+    this.state = {
+      username: '',
+      email: '',
+    };
+  }
+
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    API.Login(this.state)
+      .then((res) => {
+        console.log(res.data._id);
+        localStorage.setItem('user', res.data._id);
+        this.props.updateUser(res.data._id);
+
+        window.location = '/';
+      });
+  };
+
+  render() {
     return (
-      <div classname = "Container">
-      <div className="Login">
-        <form onSubmit={handleSubmitLogin}>
-          <Input
-              id="email"
-              value={email}
+      <Container>
+        <Section>
+          <form>
+            <h2>Username</h2>
+            <Input
+              name='username'
               onChange={this.handleInputChange}
-              name="email"
-              label="Email"
-              onChange={e => setEmail(e.target.value)}
+              value={this.state.username}
             />
 
-           <Input
-              id="password"
-              value={password}
+            <h2>Email</h2>
+            <Input
+              name='email'
               onChange={this.handleInputChange}
-              name="password"
-              label="Password"
-              onChange={e => setPassword(e.target.value)}
+              value={this.state.email}
             />
-          <ViewBtn block bsSize="large" disabled={!validateForm()} type="submit">
-            Login
-          </ViewBtn>
-        </form>
-      </div>
 
-  <div className="Register">
-  <form onSubmit={handleSubmitRegister}>
-  <Input
-        id="username"
-        value={username}
-        onChange={this.handleInputChange}
-        name="username"
-        label="Username"
-        onChange={e => setUsername(e.target.value)}
-      />
-    <Input
-        id="email"
-        value={email}
-        onChange={this.handleInputChange}
-        name="email"
-        label="Email"
-        onChange={e => setEmail(e.target.value)}
-      />
-
-    <Input
-        id="password"
-        value={password}
-        onChange={this.handleInputChange}
-        name="password"
-        label="Password"
-        onChange={e => setPassword(e.target.value)}
-      />
-    <ViewBtn block bsSize="large" disabled={!validateForm()} type="submit">
-      Register
-    </ViewBtn>
-  </form>
-  </div>
-</div>
+            <FormBtn
+              onClick={this.handleSubmit}
+            >Login</FormBtn>
+          </form>
+        </Section>
+      </Container>
     );
   }
+}
+
+export default Login;
 
