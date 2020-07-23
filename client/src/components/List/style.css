@@ -1,37 +1,46 @@
 .list-item {
     padding: 3rem 0;
-    
+}
+
+.list-item:first-child {
+    padding-top: 0;
+}
+
+.list-item:last-child {
+    padding-bottom: 0;
 }
 
 .list-item:not(:last-child) {
     border-bottom: 1px dotted var(--color-grey2);
 }
 
-.list-item .top {
+.list-item p {
+    margin: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
+    align-items: center;
 }
 
-.list-item .title-author-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+.list-item .label {
+    margin-right: .5rem;
+    padding: 0 .5rem;
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: var(--color-grey3);
+    border-radius: .3rem;
+    text-transform: capitalize;
+}
+
+.list-item .arrow {
+    height: 3.5rem;
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--color-grey3);
 }
 
 .list-item .btns-container {
     margin-top: .8rem;
     display: flex;
-}
-
-.list-item .title {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
-
-.list-item .authors {
-    font-size: 1.2rem;
-    font-weight: 300;
 }
 
 .list-item .img-desc-container {

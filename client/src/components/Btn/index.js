@@ -7,6 +7,7 @@ import "./style.css";
 export const DeleteBtn = (props) => {
   return (
     <span className="btn btn-red" onClick={props.deleteHandler}>
+      <ion-icon name="close-circle"></ion-icon>
       Delete
     </span>
   );
@@ -14,7 +15,8 @@ export const DeleteBtn = (props) => {
 
 export const EditBtn = (props) => {
   return (
-    <span className="btn btn-green" onClick={props.editHandler}>
+    <span className="btn btn-red" onClick={props.editHandler}>
+      <ion-icon name="pencil"></ion-icon>
       Edit
     </span>
   );
@@ -34,7 +36,10 @@ export const SaveBtn = (props) => {
 
 export const ViewBtn = ({ link }) => {
   return (
-    <Link to={link} className="btn btn-blue">View</Link>
+    <Link to={link} className="btn btn-red">
+      <ion-icon name="eye"></ion-icon>
+      View
+    </Link>
   )
 }
 
