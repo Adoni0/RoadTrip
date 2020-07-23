@@ -11,12 +11,11 @@ import DistanceDisplay from '../DistanceDisplay';
 class Directions extends React.Component {
   state = {
     directions: null,
-    origin: 'Cork, Ireland',
-    destination: "Dublin, Ireland",
+    origin: '',
+    destination: "",
     distance: '',
     duration: ''
   };
-
 
   callback = (response, status) => {
     if (status !== 'OK') {
