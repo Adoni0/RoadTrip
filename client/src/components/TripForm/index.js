@@ -65,12 +65,13 @@ class TripForm extends Component {
           //   label={`Stop${num} Location`}
           //   placeholder="Enter your stop location."
           // />
-          <div key={`stop${num}`} className="form-group">
+          <div className="form-group">
             <label htmlFor={`stop${num}`} className="form-label">
               <ion-icon name="pin"></ion-icon>
               Stop {num}
             </label>
             <GooglePlacesAutocomplete
+              key={`stop${num}`}
               onSelect={({ description: placeOfStop }) => { this.handleAddStopPlaces(placeOfStop, num) }}
               // onChange={this.handleAddStopPlaces}
               id={`stop${num}`}
