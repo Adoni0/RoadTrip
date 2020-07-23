@@ -25,7 +25,12 @@ class YelpBusinesses extends React.Component {
         this.rowStyle = {
             width: 450
         }
+    }
 
+    componentDidMount() {
+        // this.getBusinesses('los angeles')
+        let id = window.location.pathname.split('/')[2];
+        this.getStops(id);
     }
 
     getBusinesses = (location) => {
@@ -64,10 +69,15 @@ class YelpBusinesses extends React.Component {
         return JSON.stringify(obj) === JSON.stringify({}); // true
     };
 
-    componentDidMount() {
-        // this.getBusinesses('los angeles')
-        let id = window.location.pathname.split('/')[2];
-        this.getStops(id);
+    renderStars = (num) => {
+        const arr = [];
+        for (let i=0; i < num; i++) {
+            arr.push(i);
+        }
+
+        return arr.map(item =>
+            <ion-icon name="star"/>
+        );
     }
 
     render() {
@@ -82,7 +92,7 @@ class YelpBusinesses extends React.Component {
                                     <span className="sub">
                                         Route stop
                                     </span>
-                                    <ion-icon name="pin"></ion-icon>
+                                    <ion-icon name="pin" />
                                     <span className="main">
                                         {stop}
                                     </span>
@@ -102,7 +112,7 @@ class YelpBusinesses extends React.Component {
                                                             </a>
                                                         </h3>
                                                         <p>Reviews: {business.review_count}</p>
-                                                        <p>Rating: {business.rating} Stars</p>
+                                                        <p>Rating: {this.renderStars(business.rating)}</p>
                                                         <p>Phone #: {business.display_phone}</p>
                                                         <p>
                                                             <a href={business.url} target="_blank" rel="noopener noreferrer" className="link-stop">
