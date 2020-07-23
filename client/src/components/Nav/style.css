@@ -1,45 +1,85 @@
 .navbar {
     width: 100%;
     padding: .5rem 2rem;
-    background: var(--color-blue);
+    background: rgba(0, 0, 0, .5);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    z-index: 100;
 }
 
 a.navbar-brand {
     color: var(--color-white);
+    font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+a.navbar-brand ion-icon {
+    margin-right: .5rem;
+    color: var(--color-red);
+    font-size: 2.4rem;
 }
 
 .navbar ul {
     display: flex;
     margin: 0;
+    margin-top: -4px;
 }
 
 .navbar li:not(:last-child) {
     margin-right: 2rem;
 }
 
-a.navlink {
-    color: var(--color-white);
-}
+/*a.navlink {*/
+/*    font-size: 1.3rem;*/
+/*    color: var(--color-white);*/
+/*}*/
 
-.navlink:active,
-.navlink:visited {
-    font-size: 1.5rem;
-    color: var(--color-white);
-    font-weight: 300;
-}
+/*.navlink:active,*/
+/*.navlink:visited {*/
+/*    color: var(--color-white);*/
+/*    font-weight: 300;*/
+/*}*/
 
-.navlink:hover,
-.navlink:focus {
-    font-weight: 500;
-    text-decoration: none;
-}
+/*.navlink:hover,*/
+/*.navlink:focus {*/
+/*    font-weight: 500;*/
+/*    text-decoration: none;*/
+/*}*/
 
 .navlink.active {
     font-weight: 500;
-    border-bottom: 1px solid var(--color-white);
+}
+
+.navbar a.navlink {
+    padding: 2px 0;
+    font-size: 1.3rem;
+    color: var(--color-white);
+    position: relative;
+    border-bottom: 1px solid #b2b2b2;
+}
+
+.navbar a.navlink::after {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: var(--color-red);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.navbar a.navlink:hover {
+    text-decoration: none;
+}
+
+.navbar a.navlink:hover::after {
+    transform: scaleX(1);
 }
