@@ -75,6 +75,7 @@ class TripsList extends Component {
                 {...this.props}
                 selectedTripData={this.state.selectedTripData}
                 formType='edit'
+                socket={this.props.socket}
               />
               <div className="close-btn" onClick={this.hideEditForm}>
                 <ion-icon name="close-circle"></ion-icon>

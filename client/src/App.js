@@ -87,6 +87,7 @@ class App extends Component {
                   userId={this.state.userId}
                   loadTrips={this.loadTrips}
                   allTrips={this.state.allTrips}
+                  socket={this.socket}
                 />}
               />
 

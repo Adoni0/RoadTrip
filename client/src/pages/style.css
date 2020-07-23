@@ -41,7 +41,7 @@
 .car-red {
     position: absolute;
     top: 2rem;
-    left: -25rem;
+    left: -1000px;
     z-index: 10;
     animation: car-run 2.2s ease-in;
 }
@@ -52,7 +52,7 @@
 
 @keyframes car-run {
     0% {transform: translateX(0);}
-    100% {transform: translateX(110vw);}
+    100% {transform: translateX(120vw);}
 }
 
 @media screen and (min-width: 601px) {
