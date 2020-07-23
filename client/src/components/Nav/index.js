@@ -7,6 +7,7 @@ class Nav extends Component {
     return (
       <nav className="navbar">
         <NavLink exact to="/" className="navbar-brand">
+          <ion-icon name="car-sport"></ion-icon>
           RoadTripPlanner
         </NavLink>
 

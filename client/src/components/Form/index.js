@@ -7,7 +7,12 @@ import "./style.css";
 export const Input = props => {
   return (
     <div className="form-group">
-      <label htmlFor={props.id} className="form-label">{props.label}</label>
+      <label htmlFor={props.id} className="form-label">
+        {props.iconName ? (
+          <ion-icon name={props.iconName}></ion-icon>
+        ) : ''}
+        {props.label}
+      </label>
       <input
         type="text"
         className="form-input"
@@ -16,6 +21,7 @@ export const Input = props => {
         onChange={props.onChange}
         name={props.name}
         placeholder={props.placeholder}
+
       />
     </div>
   );
@@ -24,7 +30,12 @@ export const Input = props => {
 export const Select = props => {
   return (
     <div className="form-group">
-      <label htmlFor={props.id} className="form-label">{props.label}</label>
+      <label htmlFor={props.id} className="form-label">
+        {props.iconName ? (
+          <ion-icon name={props.iconName}></ion-icon>
+        ) : ''}
+        {props.label}
+      </label>
       <select
         id={props.id}
         name={props.name}

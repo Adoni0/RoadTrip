@@ -3,7 +3,8 @@ import {FormBtn, Input, Select} from '../Form';
 import API from '../../utils/API';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import 'react-google-places-autocomplete/dist/index.min.css';
-import "./style.css";
+import '../Form/style.css';
+import './style.css';
 
 
 class TripForm extends Component {
@@ -64,14 +65,20 @@ class TripForm extends Component {
           //   label={`Stop${num} Location`}
           //   placeholder="Enter your stop location."
           // />
-          <GooglePlacesAutocomplete
-            key={`stop${num}`}
-            onSelect={({ description: placeOfStop }) => { this.handleAddStopPlaces(placeOfStop, num) }}
-            // onChange={this.handleAddStopPlaces} 
-            id={`stop${num}`}
-            name={`stop${num}`}
-            placeholder="Enter your stop location."
-          />
+          <div className="form-group">
+            <label htmlFor={`stop${num}`} className="form-label">
+              <ion-icon name="pin"></ion-icon>
+              Stop {num}
+            </label>
+            <GooglePlacesAutocomplete
+              key={`stop${num}`}
+              onSelect={({ description: placeOfStop }) => { this.handleAddStopPlaces(placeOfStop, num) }}
+              // onChange={this.handleAddStopPlaces}
+              id={`stop${num}`}
+              name={`stop${num}`}
+              placeholder="Enter your stop location."
+            />
+          </div>
         ) : null
       }
     </>
@@ -217,6 +224,7 @@ class TripForm extends Component {
           name="tripName"
           label="Your Trip Name"
           placeholder="Enter your trip name."
+          iconName="compass-outline"
         />
         {/* <Input
           id="origin"
@@ -226,13 +234,18 @@ class TripForm extends Component {
           label="Where are you departing from?"
           placeholder="Enter your starting point."
         /> */}
-        <label className="goog-label">Where are you departing from?</label>
-        <GooglePlacesAutocomplete
-            onSelect={({ description: origin }) => { this.setState( { origin })}} 
+        <div className="form-group">
+          <label htmlFor="origin" className="form-label">
+            <ion-icon name="location"></ion-icon>
+            Where are you departing from?
+          </label>
+          <GooglePlacesAutocomplete
+            onSelect={({ description: origin }) => { this.setState( { origin })}}
             id="origin"
             name="origin"
             placeholder="Enter your starting point."
           />
+        </div>
         {/* <Input
           id="destination"
           value={this.state.destination}
@@ -241,13 +254,18 @@ class TripForm extends Component {
           label="Where are you looking to go?"
           placeholder="Enter your destination."
         /> */}
-        <label className="goog-label">Where are you looking to go?</label>
-        <GooglePlacesAutocomplete
-            onSelect={({ description: destination }) => { this.setState( { destination })}} 
+        <div className="form-group">
+          <label htmlFor="destination" className="form-label">
+            <ion-icon name="location"></ion-icon>
+            Where are you looking to go?
+          </label>
+          <GooglePlacesAutocomplete
+            onSelect={({ description: destination }) => { this.setState( { destination })}}
             id="destination"
             name="destination"
             placeholder="Enter your destination."
           />
+        </div>
         <Select
           id="numOfStops"
           value={this.state.numOfStops}
@@ -255,6 +273,7 @@ class TripForm extends Component {
           name="numOfStops"
           label="How many stops would you like to make?"
           optionVals={numOfStopsArr}
+          iconName="pin"
         />
         {this.renderStopLocationInputs(this.state.numOfStops)}
         <Select
@@ -264,6 +283,7 @@ class TripForm extends Component {
           name="budget"
           label="Budget?"
           optionVals={budgetArr}
+          iconName="cash"
         />
         <FormBtn
           disabled={!this.state.tripName}
