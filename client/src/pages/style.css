@@ -13,11 +13,12 @@
     margin: 3rem 0;
 }
 
-.heading-home {
+.heading-top {
     margin: 10rem auto;
     text-align: center;
     font-size: 5rem;
     text-shadow: 0 0 6px var(--color-white);
+    position: relative;
 }
 
 .trip-list-container-short {
@@ -27,6 +28,23 @@
     overflow-y: scroll;
     border: 1px solid var(--color-grey-light);
     border-radius: .5rem;
+}
+
+.car-red {
+    position: absolute;
+    top: 2rem;
+    left: -25rem;
+    z-index: 10;
+    animation: car-run 2.5s ease-in;
+}
+
+.car-red img {
+    width: 12rem;
+}
+
+@keyframes car-run {
+    0% {transform: translateX(0);}
+    100% {transform: translateX(110vw);}
 }
 
 @media screen and (min-width: 601px) {

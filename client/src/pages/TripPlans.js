@@ -14,7 +14,12 @@ class TripPlans extends Component {
   render() {
     return (
       <Container>
-        <h1 className="heading-home">Your Road Trip Plans</h1>
+        <h1 className="heading-top">
+          Your Road Trip Plans
+          <div className="car-red">
+            <img src={`${process.env.PUBLIC_URL}/images/car-red.png`} />
+          </div>
+        </h1>
 
         <Section>
           <TripsList

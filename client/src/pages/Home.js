@@ -17,7 +17,13 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <h1 className="heading-home">Plan your road trip!</h1>
+        <h1 className="heading-top">
+          Plan your road trip!
+          <div className="car-red">
+            <img src={`${process.env.PUBLIC_URL}/images/car-red.png`} />
+          </div>
+        </h1>
+
         <Section>
           {/*<h2>Fill out your road trip information!!</h2>*/}
           <TripForm {...this.props} formType='new' socket={this.props.socket} />
