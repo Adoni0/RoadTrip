@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
-import { Input, Select, FormBtn } from "../components/Form";
-import { SubmitBtn } from "../components/Btn";
+import { Input, FormBtn } from "../components/Form";
 import API from '../utils/API';
-import APP from "../App.js";
 
 class Login extends Component {
   constructor() {
@@ -41,23 +39,25 @@ class Login extends Component {
       <Container>
         <Section>
           <form>
-            <h2>Username</h2>
             <Input
               name='username'
               onChange={this.handleInputChange}
               value={this.state.username}
+              label="Username"
             />
 
-            <h2>Email</h2>
             <Input
               name='email'
               onChange={this.handleInputChange}
               value={this.state.email}
+              label="Email"
             />
 
             <FormBtn
               onClick={this.handleSubmit}
-            >Login</FormBtn>
+            >
+              Login
+            </FormBtn>
           </form>
         </Section>
       </Container>
