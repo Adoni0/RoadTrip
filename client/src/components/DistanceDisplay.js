@@ -1,5 +1,5 @@
 import React from 'react';
-import YelpBusinesses from './Yelp/YelpBusinesses';
+
 
 class DistanceDisplay extends React.Component {
     constructor(props) {
@@ -25,18 +25,12 @@ class DistanceDisplay extends React.Component {
     render() {
         return (
             <div style={this.divStyle}>
-
                 <h3> Results</h3>
                 <p>Distance: {this.props.distance}</p>
                 <p>Duration: {this.props.duration}</p>
-                <YelpBusinesses />
-
             </div>
-
         );
     }
-
-
 }
 
 export default DistanceDisplay;

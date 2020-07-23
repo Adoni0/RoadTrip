@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import Gmaps from '../components/Gmaps/';
 import API from '../utils/API';
+import YelpBusinesses from '../components/Yelp/YelpBusinesses';
 
 
 class TripPlan extends Component {
@@ -42,7 +43,7 @@ class TripPlan extends Component {
   render() {
     return (
       <Container>
-        <h1 className="heading-home">Trip Plan Result Page</h1>
+        <h1>Trip Plan Result Page</h1>
         <Gmaps
           inputOrigin={this.state.origin}
           inputDestination={this.state.destination}
@@ -50,6 +51,10 @@ class TripPlan extends Component {
           stops={this.state.stops}
           budget={this.state.budget}
         />
+
+        <Section>
+          <YelpBusinesses />
+        </Section>
       </Container>
     );
   }
