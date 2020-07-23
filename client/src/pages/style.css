@@ -1,3 +1,10 @@
+.heading-home {
+    margin: 10rem auto;
+    text-align: center;
+    font-size: 5rem;
+    text-shadow: 0 0 6px var(--color-white);
+}
+
 .trip-list-container-short {
     max-height: 50rem;
     margin-top: 2rem;
