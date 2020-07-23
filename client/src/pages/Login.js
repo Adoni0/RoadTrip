@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import { Input, FormBtn } from "../components/Form";
 import API from '../utils/API';
+import './style.css';
+
 
 class Login extends Component {
   constructor() {
@@ -37,29 +39,33 @@ class Login extends Component {
   render() {
     return (
       <Container>
-        <Section>
-          <form>
-            <Input
-              name='username'
-              onChange={this.handleInputChange}
-              value={this.state.username}
-              label="Username"
-            />
+        <div className="container-login">
+          <Section>
+            <form className="form-login">
+              <Input
+                name='username'
+                onChange={this.handleInputChange}
+                value={this.state.username}
+                label="Username"
+                iconName="person"
+              />
 
-            <Input
-              name='email'
-              onChange={this.handleInputChange}
-              value={this.state.email}
-              label="Email"
-            />
+              <Input
+                name='email'
+                onChange={this.handleInputChange}
+                value={this.state.email}
+                label="Email"
+                iconName="mail"
+              />
 
-            <FormBtn
-              onClick={this.handleSubmit}
-            >
-              Login
-            </FormBtn>
-          </form>
-        </Section>
+              <FormBtn
+                onClick={this.handleSubmit}
+              >
+                Login
+              </FormBtn>
+            </form>
+          </Section>
+        </div>
       </Container>
     );
   }
