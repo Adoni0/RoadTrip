@@ -17,7 +17,7 @@ class Home extends Component {
       <Container>
         <h1 className="heading-home">Plan your road trip!</h1>
         <Section>
-          <h2>Fill out your road trip information!!</h2>
+          {/*<h2>Fill out your road trip information!!</h2>*/}
           <TripForm {...this.props} formType='new' socket={this.props.socket} />
         </Section>
 

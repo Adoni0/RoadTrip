@@ -1,18 +1,26 @@
-.google-places-autocomplete{
-    width: 100%;
-    margin: 2rem 0;
-    font-size: 1.5rem;
+/*.google-places-autocomplete {*/
+/*    width: 100%;*/
+/*    margin: 2rem 0;*/
+/*    font-size: 1.5rem;*/
+/*    width: 100%;*/
+/*    padding: .6rem;*/
+/*    border: 1px solid var(--color-grey2);*/
+/*    border-radius: .5rem;*/
+/*    display: block;*/
+/*}*/
+
+
+/*
+Overwrite GooglePlacesAutocomplete's styling
+*/
+.google-places-autocomplete__input {
     width: 100%;
     padding: .6rem;
     border: 1px solid var(--color-grey2);
     border-radius: .5rem;
-    display: block;
 }
 
-.goog-label{
-    width: 100%;
-    margin-bottom: .5rem;
-    display: block;
-    font-weight: 500;
-    font-size: 1.8rem;
+.google-places-autocomplete__input:focus,
+.google-places-autocomplete__input:hover {
+    border: 1px solid var(--color-grey2);
 }
