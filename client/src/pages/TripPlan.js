@@ -8,6 +8,7 @@ import YelpBusinesses from '../components/Yelp/YelpBusinesses';
 class TripPlan extends Component {
 
   state = {
+    tripName: '',
     origin: '',
     destination: '',
     stops: [],
@@ -20,6 +21,7 @@ class TripPlan extends Component {
       .then(res => {
 
         this.setState({
+          tripName: res.data.tripName,
           origin: res.data.origin,
           destination: res.data.destination,
           stops: res.data.stops.placesOfStops,
@@ -43,7 +45,12 @@ class TripPlan extends Component {
   render() {
     return (
       <Container>
-        <h1>Trip Plan Result Page</h1>
+        <h1 className="heading-top small">
+          {this.state.tripName}
+          <div className="car-red">
+            <img src={`${process.env.PUBLIC_URL}/images/car-red.png`} />
+          </div>
+        </h1>
         <Gmaps
           inputOrigin={this.state.origin}
           inputDestination={this.state.destination}

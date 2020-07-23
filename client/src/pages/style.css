@@ -19,6 +19,14 @@
     font-size: 5rem;
     text-shadow: 0 0 6px var(--color-white);
     position: relative;
+    font-weight: bold;
+}
+
+.heading-top.small {
+    margin: 1rem auto 2.5rem;
+    font-size: 3rem;
+    color: var(--color-white);
+    text-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
 .trip-list-container-short {
@@ -35,7 +43,7 @@
     top: 2rem;
     left: -25rem;
     z-index: 10;
-    animation: car-run 2.5s ease-in;
+    animation: car-run 2.2s ease-in;
 }
 
 .car-red img {

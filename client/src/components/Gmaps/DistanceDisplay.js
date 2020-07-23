@@ -10,7 +10,6 @@ class DistanceDisplay extends React.Component {
     render() {
         return (
             <div className="gmap-text-container">
-                {/*<h3> Results</h3>*/}
                 <p>
                     <span className="label">Start</span>
                     {this.props.origin}
