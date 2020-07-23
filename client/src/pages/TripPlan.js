@@ -42,7 +42,7 @@ class TripPlan extends Component {
   render() {
     return (
       <Container>
-        <h1>Trip Plan Result Page</h1>
+        <h1 className="heading-home">Trip Plan Result Page</h1>
         <Gmaps
           inputOrigin={this.state.origin}
           inputDestination={this.state.destination}
