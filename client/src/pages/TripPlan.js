@@ -48,6 +48,7 @@ class TripPlan extends Component {
           inputDestination={this.state.destination}
           allTrips={this.props.allTrips}
           stops={this.state.stops}
+          budget={this.state.budget}
         />
       </Container>
     );
