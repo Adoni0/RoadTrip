@@ -29,13 +29,36 @@
     color: var(--color-red-dark);
 }
 
+.business-image-container {
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-grey-light);
+}
+
+.business-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .business p {
     margin: 0 0 .5rem 0;
     font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.business .subtext {
+    margin-right: .5rem;
+    color: var(--color-grey3);
+    font-size: 1rem;
+    text-transform: capitalize;
 }
 
 .business-name {
-    margin: 0 0 .8rem 0;
+    margin: .5rem 0 .8rem 0;
     font-size: 1.5rem;
 }
 

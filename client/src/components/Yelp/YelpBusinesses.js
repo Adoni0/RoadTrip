@@ -104,16 +104,19 @@ class YelpBusinesses extends React.Component {
                                         return (
                                             <div className="col mb-4" style={this.cardStyle}>
                                                 <div className="card business">
-                                                    <img src={business.image_url} className="card-img-top max-width:100%" width="200" height="300" alt={business.name} />
+                                                    <div className="business-image-container">
+                                                        <img src={business.image_url} className="business-image" alt={business.name} />
+                                                    </div>
+
                                                     <div className="card-body">
                                                         <h3 className="business-name">
                                                             <a href={business.url} target="_blank" rel="noopener noreferrer" className="link-stop">
                                                                 {business.name}
                                                             </a>
                                                         </h3>
-                                                        <p>Reviews: {business.review_count}</p>
-                                                        <p>Rating: {this.renderStars(business.rating)}</p>
-                                                        <p>Phone #: {business.display_phone}</p>
+                                                        <p><span className="subtext">Reviews</span>{business.review_count}</p>
+                                                        <p><span className="subtext">Rating</span>{this.renderStars(business.rating)}</p>
+                                                        <p><span className="subtext">Phone</span>{business.display_phone}</p>
                                                         <p>
                                                             <a href={business.url} target="_blank" rel="noopener noreferrer" className="link-stop">
                                                                 Click here for more info...
