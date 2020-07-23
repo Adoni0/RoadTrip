@@ -33,5 +33,16 @@ module.exports = {
       req.logout();
       req.flash("success_msg", "Logout successful");
       res.redirect("/");
+  },
+  findOneAndUpdate: function(req, res) {
+    console.log('user: ' + JSON.stringify(req.body));
+
+    db.User.findOneAndUpdate({ email: req.body.email }, req.body, { upsert: true, new: true })
+      .then((user) => {
+        console.log(user);
+        res.status(200).send(user)
+      }).catch((err) => {
+        res.status(401).send('email or username already in use')
+      });
   }
 }

@@ -10,135 +10,60 @@ class Login extends Component {
     super();
 
     this.state = {
-      user: null,
-      loggedIn: false,
-      loginEmail:"",
-      loginPassword:"",
-      registerUsername: "",
-      registerPassword: "",
-      registerEmail: ""
+      username: '',
+      email: '',
     };
   }
-    
 
-    loginValidateForm() {
-      return this.state.loginEmail.length > 0 && this.state.loginPassword.length > 0;
-    }
-   registerValidateForm() {
-      return this.state.registerUsername.length > 0 && 
-      this.state.registerPassword.length > 0 &&
-      this.state.registerEmail.length > 0;
-    }
- 
-    handleSubmitLogin = (event) => {
-      event.preventDefault();
-      API.Login({
-        email: this.state.loginEmail,
-        password: this.state.loginPassword,
-      })
-      .then(res => {
-        if(res.data._id){
-          this.setState({
-            user: res.data._id,
-            redirect: true,
-            loggedIn: true,
-            loginEmail:res.data.email,
-            loginPassword:res.data.password
-          });
-        }
-        console.log('User logged in!');
-        //APP.handleSetState(res.data.id);
-        // Redirect to the trips page
-        window.location.replace("/home");
-    }) 
-    .catch(err => console.log(err));
-  }
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-    handleInputChange = (e) => {
-      const {name, value} = e.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
-      this.setState({
-        [name]: value
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    API.Login(this.state)
+      .then((res) => {
+        console.log(res.data._id);
+        localStorage.setItem('user', res.data._id);
+        this.props.updateUser(res.data._id);
+
+        window.location = '/';
       });
-    };
+  };
 
-    handleSubmitRegister = (event) => {
-      event.preventDefault();
-      API.Register({
-        username: this.state.registerUsername,
-        email: this.state.registerEmail,
-        password: this.state.registerPassword
-      })
-      .then(res => {
-      console.log('User registered!');
-      APP.handleSetState(res.data.id);
-      // Redirect to the trips page
-      window.location.replace(`/`);
-    })
-    .catch(err => console.log(err));
-    }
-  render(){
+  render() {
     return (
-      <div className = "Container">
-      <div className="Login">
-        <form>
-          <Input
-              id="email"
-              value={this.state.loginEmail}
+      <Container>
+        <Section>
+          <form>
+            <h2>Username</h2>
+            <Input
+              name='username'
               onChange={this.handleInputChange}
-              name="loginEmail"
-              label="Email"
+              value={this.state.username}
             />
 
-           <Input
-              id="password"
-              value={this.state.loginPassword}
+            <h2>Email</h2>
+            <Input
+              name='email'
               onChange={this.handleInputChange}
-              name="loginPassword"
-              label="Password"
+              value={this.state.email}
             />
-          <SubmitBtn block bsSize="large" disabled={!this.loginValidateForm()} type="submit"
-          onSubmit={this.handleSubmitLogin}>
-            Login
-          </SubmitBtn>
-        </form>
-      </div>
 
-  <div className="Register">
-  <form>
-  <Input
-        id="username"
-        value={this.state.registerUsername}
-        onChange={this.handleInputChange}
-        name="registerUsername"
-        label="Username"
-      />
-    <Input
-        id="email"
-        value={this.state.registerEmail}
-        onChange={this.handleInputChange}
-        name="registerEmail"
-        label="Email"
-      />
-
-    <Input
-        id="password"
-        value={this.state.registerPassword}
-        onChange={this.handleInputChange}
-        name="registerPassword"
-        label="Password"
-      />
-    <SubmitBtn block bsSize="large" disabled={!this.registerValidateForm()} type="submit"
-    onSubmit={this.handleSubmitRegister}>
-      Register
-    </SubmitBtn>
-  </form>
-  </div>
-</div>
-  
+            <FormBtn
+              onClick={this.handleSubmit}
+            >Login</FormBtn>
+          </form>
+        </Section>
+      </Container>
     );
   }
-    }
+}
 
-  export default Login;
+export default Login;
 

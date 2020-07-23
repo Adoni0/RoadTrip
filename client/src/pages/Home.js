@@ -10,6 +10,8 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.loadTrips();
+
+    if (!this.props.userId) { window.location = '/login' }
   }
 
   render() {

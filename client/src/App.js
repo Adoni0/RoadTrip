@@ -14,12 +14,20 @@ import './App.css';
 
 
 class App extends Component {
+  constructor() {
+    super();
 
-  state = {
-    userId: '1', // This Id is temp
-    allTrips: [],
-    socketData: ''
+    this.state = {
+      userId: localStorage.getItem('user'), // This Id is temp
+      allTrips: [],
+      socketData: ''
+    }
   }
+  // state = {
+  //   userId: null, // This Id is temp
+  //   allTrips: [],
+  //   socketData: ''
+  // }
 
   socketURL =
     process.env.NODE_ENV === 'production'
@@ -28,15 +36,13 @@ class App extends Component {
 
   socket = io.connect(this.socketURL, {secure: true});
 
-  handleSetState(userID){
-    //userId = userID;
-  }
+  updateUser = (userId) => {
+    this.setState({
+      userId: userId
+    });
+  };
 
   componentDidMount() {
-    // this.socket.on("outgoing data", data => {
-    //   this.setState({socketData: data})
-    // })
-
     this.socket.on("incoming data", data => {
       this.setState({socketData: data})
 
@@ -64,13 +70,6 @@ class App extends Component {
           <Nav />
           <Switch>
             <Route
-            //   exact path="/" component={Login}/>
-            
-            // <Route exact path="/trip-plans" component={TripPlan} />
-            // <Route exact path="/trip-plans/:id" component={TripPlan} />
-            // <Route exact path="/home" render={props => 
-            //   <Home {...props} userId={this.state.userId} loadTrips={this.loadTrips} 
-            //   allTrips={this.state.allTrips} />}/>
               exact
               path="/"
               render={props => <Home {...props}
@@ -88,6 +87,14 @@ class App extends Component {
                 loadTrips={this.loadTrips}
                 allTrips={this.state.allTrips}
               />}
+            />
+
+            <Route
+              exact
+              path="/login"
+              render={() => {
+                return <Login updateUser={this.updateUser} />
+              }}
             />
 
             <Route
