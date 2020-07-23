@@ -1,0 +1,16 @@
+.car-red {
+    position: absolute;
+    top: 15rem;
+    left: -15rem;
+    z-index: 10;
+    animation: car-run 2.2s ease-in;
+}
+
+.car-red img {
+    width: 12rem;
+}
+
+@keyframes car-run {
+    0% {transform: translateX(0);}
+    100% {transform: translateX(110vw);}
+}

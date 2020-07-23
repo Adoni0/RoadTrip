@@ -3,6 +3,7 @@ import { Section, Container } from "../components/Grid";
 import Gmaps from '../components/Gmaps/';
 import API from '../utils/API';
 import YelpBusinesses from '../components/Yelp/YelpBusinesses';
+import Car from "../components/Car";
 
 
 class TripPlan extends Component {
@@ -44,25 +45,25 @@ class TripPlan extends Component {
 
   render() {
     return (
-      <Container>
-        <h1 className="heading-top small">
-          {this.state.tripName}
-          <div className="car-red">
-            <img src={`${process.env.PUBLIC_URL}/images/car-red.png`} />
-          </div>
-        </h1>
-        <Gmaps
-          inputOrigin={this.state.origin}
-          inputDestination={this.state.destination}
-          allTrips={this.props.allTrips}
-          stops={this.state.stops}
-          budget={this.state.budget}
-        />
+      <>
+        <Car top={8} width={10} />
+        <Container>
+          <h1 className="heading-top small">
+            {this.state.tripName}
+          </h1>
+          <Gmaps
+            inputOrigin={this.state.origin}
+            inputDestination={this.state.destination}
+            allTrips={this.props.allTrips}
+            stops={this.state.stops}
+            budget={this.state.budget}
+          />
 
-        <Section>
-          <YelpBusinesses />
-        </Section>
-      </Container>
+          <Section>
+            <YelpBusinesses />
+          </Section>
+        </Container>
+      </>
     );
   }
 }
