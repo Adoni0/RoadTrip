@@ -5,8 +5,9 @@
   --color-green-light2: #d9f0dd;
   --color-yellow-light: #f7e287;
   --color-yellow: #fbbc04;
-  --color-red: #ea4235;
+  --color-red: #f92146;
   --color-red-dark: #b81b35;
+  --color-red-light1: #f74f6c;
   --color-red-light: #ff5c4f;
   --color-blue: #4184f4;
   --color-blue-light1: #679eff;
@@ -18,8 +19,8 @@
   --color-grey2: #c1c1c1;
   --color-grey3: #6a6a6a;
   --color-grey-light: #eee;
-  --font-heading: 'Abril Fatface', cursive;
-  --font-default: 'Poppins', sans-serif;
+  --font-heading: 'Lustria', serif;
+  --font-default: 'Lato', sans-serif;
 }
 
 /* ========== COMMON ========== */
@@ -44,7 +45,6 @@ body {
   position: relative;
   font-size: 1.6rem;
   font-weight: 300;
-  background: var(--color-blue-light2);
 }
 
 a {
@@ -66,10 +66,27 @@ ul {
   list-style: none;
 }
 
+h1 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
 h3 {
   font-size: 2rem;
   font-weight: 500;
   color: var(--color-blue);
+}
+
+.bg-road {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-image: url("../images/bg-road.jpg");
+  background-position: center center;
+  background-size: cover;
+  overflow-y: scroll;
 }
 
 .message {

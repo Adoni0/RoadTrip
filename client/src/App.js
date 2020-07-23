@@ -65,29 +65,30 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <>
-          <Nav />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => <Home {...props}
-                userId={this.state.userId}
-                loadTrips={this.loadTrips}
-                allTrips={this.state.allTrips}
-                socket={this.socket} />}
-            />
+      <div className="bg-road">
+        <Router>
+          <>
+            <Nav />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => <Home {...props}
+                  userId={this.state.userId}
+                  loadTrips={this.loadTrips}
+                  allTrips={this.state.allTrips}
+                  socket={this.socket} />}
+              />
 
-            <Route
-              exact
-              path="/trip-plans"
-              render={props => <TripPlans {...props}
-                userId={this.state.userId}
-                loadTrips={this.loadTrips}
-                allTrips={this.state.allTrips}
-              />}
-            />
+              <Route
+                exact
+                path="/trip-plans"
+                render={props => <TripPlans {...props}
+                  userId={this.state.userId}
+                  loadTrips={this.loadTrips}
+                  allTrips={this.state.allTrips}
+                />}
+              />
 
             <Route
               exact
@@ -103,11 +104,12 @@ class App extends Component {
               render={() => <TripPlan allTrips={this.state.allTrips} />}
             />
 
-            <Route component={NoMatch} />
-          </Switch>
-          <Notification socketData={this.state.socketData} />
-        </>
-      </Router>
+              <Route component={NoMatch} />
+            </Switch>
+            <Notification socketData={this.state.socketData} />
+          </>
+        </Router>
+      </div>
     )
   }
 }
