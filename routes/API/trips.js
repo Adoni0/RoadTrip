@@ -2,6 +2,7 @@ const router = require('express').Router();
 const tripsController = require('../../controllers/tripsController');
 
 router.route('/')
+  .get(tripsController.findAllTripsByDestination)
   .post(tripsController.create);
 
 router.route('/:id')

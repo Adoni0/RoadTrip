@@ -3,9 +3,12 @@ import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 import Home from './pages/Home';
+import TripPlans from './pages/TripPlans';
 import TripPlan from './pages/TripPlan';
 import Login from './pages/Login';
 import NoMatch from "./pages/NoMatch";
+import Nav from "./components/Nav";
+import Notification from "./components/Notification";
 
 import './App.css';
 
@@ -14,7 +17,8 @@ class App extends Component {
 
   state = {
     userId: '1', // This Id is temp
-    allTrips: []
+    allTrips: [],
+    socketData: ''
   }
 
   handleSetState(userID){
@@ -24,24 +28,26 @@ class App extends Component {
       ? window.location.hostname
       : 'http://localhost:3001';
 
-  socket = io.connect(this.socketURL, {secure: true});
-  
+  socket = io.connect(this.socketURL, { secure: true });
 
   componentDidMount() {
-    this.socket.on("outgoing data", data => {
-      // this.setState({response: data})
-      // console.log( `The book "${this.state.response.title}" has been saved!` );
+    // this.socket.on("outgoing data", data => {
+    //   this.setState({socketData: data})
+    // })
+
+    this.socket.on("incoming data", data => {
+      this.setState({socketData: data})
 
       console.log('A trip is saved!');
       console.log(data);
-      console.log(`Trip Name: ${data.tripName}`);
-      console.log(`destination: ${data.destination}`);
+      console.log(`Trip Name: ${data.tripData.tripName}`);
+      console.log(`Destination: ${data.tripData.destination}`);
     })
   }
 
   loadTrips = () => {
     const userId = this.state.userId;
-    API.getAllTrips(userId)
+    API.getAllTripsByUser(userId)
       .then(res => {
         console.log(res.data);
         this.setState({ allTrips: res.data.trips });
@@ -53,17 +59,44 @@ class App extends Component {
     return (
       <Router>
         <>
+          <Nav />
           <Switch>
             <Route
-              exact path="/" component={Login}/>
+            //   exact path="/" component={Login}/>
             
-            <Route exact path="/trip-plans" component={TripPlan} />
-            <Route exact path="/trip-plans/:id" component={TripPlan} />
-            <Route exact path="/home" render={props => 
-              <Home {...props} userId={this.state.userId} loadTrips={this.loadTrips} 
-              allTrips={this.state.allTrips} />}/>
+            // <Route exact path="/trip-plans" component={TripPlan} />
+            // <Route exact path="/trip-plans/:id" component={TripPlan} />
+            // <Route exact path="/home" render={props => 
+            //   <Home {...props} userId={this.state.userId} loadTrips={this.loadTrips} 
+            //   allTrips={this.state.allTrips} />}/>
+              exact
+              path="/"
+              render={props => <Home {...props}
+                userId={this.state.userId}
+                loadTrips={this.loadTrips}
+                allTrips={this.state.allTrips}
+                socket={this.socket} />}
+            />
+
+            <Route
+              exact
+              path="/trip-plans"
+              render={props => <TripPlans {...props}
+                userId={this.state.userId}
+                loadTrips={this.loadTrips}
+                allTrips={this.state.allTrips}
+              />}
+            />
+
+            <Route
+              exact
+              path="/trip-plans/:id"
+              render={() => <TripPlan allTrips={this.state.allTrips} />}
+            />
+
             <Route component={NoMatch} />
           </Switch>
+          <Notification socketData={this.state.socketData} />
         </>
       </Router>
     )

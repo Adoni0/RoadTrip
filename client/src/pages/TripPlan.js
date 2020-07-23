@@ -5,10 +5,12 @@ import API from '../utils/API';
 
 
 class TripPlan extends Component {
+
   state = {
     origin: '',
     destination: '',
-    stops: []
+    stops: [],
+    budget: ''
   }
 
   grabTravelValues = (id) => {
@@ -16,9 +18,12 @@ class TripPlan extends Component {
     API.getTrip(id)
       .then(res => {
 
-        this.setState({ origin: res.data.origin, 
-          destination: res.data.destination, 
-          stops: res.data.stops.placesOfStops });
+        this.setState({
+          origin: res.data.origin,
+          destination: res.data.destination,
+          stops: res.data.stops.placesOfStops,
+          budget: res.data.stops.budget
+        });
 
       })
 
@@ -41,6 +46,7 @@ class TripPlan extends Component {
         <Gmaps
           inputOrigin={this.state.origin}
           inputDestination={this.state.destination}
+          allTrips={this.props.allTrips}
           stops={this.state.stops}
         />
       </Container>

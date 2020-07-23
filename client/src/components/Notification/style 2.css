@@ -1,0 +1,16 @@
+.notification {
+    padding: 1rem 2rem;
+    z-index: 100;
+    position: fixed;
+    top: 6rem;
+    right: 2rem;
+    background: var(--color-green-light2);
+    border: 2px solid var(--color-green-light1);
+    border-radius: .6rem;
+    font-size: 1.3rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, .2);
+}
+
+.notification .title {
+    font-weight: 700;
+}
