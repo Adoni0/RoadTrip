@@ -19,8 +19,11 @@
   --color-grey2: #c1c1c1;
   --color-grey3: #6a6a6a;
   --color-grey-light: #eee;
+
   --font-heading: 'Lustria', serif;
   --font-default: 'Lato', sans-serif;
+
+  --bg-transparent-white: rgba(255, 255, 255, .8);
 }
 
 /* ========== COMMON ========== */

@@ -1,0 +1,75 @@
+.gmap-container {
+    height: 60rem;
+    margin-bottom: 2rem;
+    display: flex;
+}
+
+.gmap-text-container {
+    width: 28rem;
+    padding: 3rem;
+    background: var(--bg-transparent-white);
+    border-radius: .2rem 0 0 .2rem;
+    border: 1px solid var(--color-grey-light);
+}
+
+.gmap-text-container .label {
+    margin-right: .5rem;
+    padding: .3rem .5rem;
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: var(--color-red-dark);
+    border-radius: .3rem;
+    text-transform: capitalize;
+}
+
+
+
+.gmap-text-stops {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 2px dotted var(--color-grey2);
+}
+
+.gmap-text-stops li {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.gmap-text-stops li:not(:last-of-type) {
+    margin-bottom: .8rem;
+}
+
+.gmap-text-stops li ion-icon {
+    color: var(--color-red-dark);
+    font-size: 1.6rem;
+}
+
+.gmap-text-data {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-grey2);
+    /*border-radius: .3rem;*/
+    color: var(--color-red-dark);
+    font-weight: 700;
+}
+
+.gmap-text-data li:not(:last-of-type) {
+    margin-bottom: .8rem;
+}
+
+.gmap-text-container .subtext {
+    margin-right: .5rem;
+    color: var(--color-grey3);
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    display: block;
+}
+
+
+.gmap-map-container {
+    width: calc(100% - 28rem);
+    height: 100%;
+}
