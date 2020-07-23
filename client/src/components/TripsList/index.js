@@ -50,8 +50,11 @@ class TripsList extends Component {
                   <ion-icon name="car"></ion-icon>
                   {trip.tripName}
                 </p>
-                <p>Start: {trip.origin}</p>
-                <p>Destination: {trip.destination}</p>
+                <p><span className="label">Start</span>{trip.origin}</p>
+                <div className="arrow">
+                  <ion-icon name="arrow-down"></ion-icon>
+                </div>
+                <p><span className="label">Destination</span>{trip.destination}</p>
                 <div className="btns-container">
                   <ViewBtn link={`/trip-plans/${trip._id}`} />
                   <EditBtn editHandler={this.handleEdit(trip)} />
