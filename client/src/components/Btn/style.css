@@ -4,7 +4,7 @@
   border-radius: .5rem;
   transition: background-color .2s;
   cursor: pointer;
-  box-shadow: 0 0 6px rgba(0, 0, 0, .5);
+  box-shadow: 0 0 6px rgba(255, 255, 255, .5);
   text-transform: capitalize;
   display: flex;
   justify-content: center;
@@ -18,8 +18,12 @@
   margin-right: 1.5rem;
 }
 
+.btn-grey {
+  background: var(--color-grey1);
+}
+
 .btn-red {
-  background: var(--color-red);
+  background: var(--color-red-dark);
 }
 
 .btn-blue {
@@ -36,9 +40,16 @@
   cursor: default;
 }
 
+.btn-grey:hover,
+.btn-grey:focus {
+  color: var(--color-white);
+  background-color: var(--color-grey3);
+}
+
 .btn-red:hover,
 .btn-red:focus {
-  background-color: var(--color-red-light);
+  color: var(--color-white);
+  background-color: var(--color-red);
 }
 
 .btn-blue:hover,
@@ -58,4 +69,8 @@
 
 a.btn {
   color: var(--color-white);
+}
+
+.btn ion-icon {
+  margin-right: .5rem;
 }
