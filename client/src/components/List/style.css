@@ -1,6 +1,9 @@
 .list-item {
     padding: 3rem 0;
-    
+}
+
+.list-item:last-child {
+    padding-bottom: 0;
 }
 
 .list-item:not(:last-child) {

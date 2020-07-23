@@ -46,9 +46,12 @@ class TripsList extends Component {
           <List>
             {this.props.allTrips.reverse().map(trip => (
               <ListItem key={`tripID-${trip._id}`}>
-                <p className="trip-name">{trip.tripName}</p>
+                <p className="trip-name">
+                  <ion-icon name="car"></ion-icon>
+                  {trip.tripName}
+                </p>
+                <p>Start: {trip.origin}</p>
                 <p>Destination: {trip.destination}</p>
-                <p>{trip._id}</p>
                 <div className="btns-container">
                   <ViewBtn link={`/trip-plans/${trip._id}`} />
                   <EditBtn editHandler={this.handleEdit(trip)} />

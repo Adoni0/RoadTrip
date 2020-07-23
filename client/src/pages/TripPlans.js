@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import TripsList from "../components/TripsList";
 import "../components/List/style.css";
+import "./style.css";
 
 
 class TripPlans extends Component {
@@ -13,7 +14,7 @@ class TripPlans extends Component {
   render() {
     return (
       <Container>
-        <h1>Your Road Trip Plans</h1>
+        <h1 className="heading-home">Your Road Trip Plans</h1>
 
         <Section>
           <TripsList

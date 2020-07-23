@@ -1,3 +1,11 @@
 .trip-name {
-    font-weight: 500;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.trip-name ion-icon {
+    margin-right: .5rem;
+    font-size: 2rem;
+    color: var(--color-red-dark);
 }
