@@ -25,5 +25,18 @@ export default {
   },
   deleteTrip: function(tripId) {
     return axios.delete(`/api/trips/${tripId}`)
+  },
+  Register: function(userData){
+    return axios.post(`/api/users/register`, userData);   
+  },
+  Login: function(userInfo){
+    return axios.post(`/api/users/login`, userInfo);
+  },
+  IsLoggedIn:function(){
+    return axios.get( `/api/users/home`)
+  },
+  Logout: function(){
+    return axios.post(`/api/users/logout`);
   }
 }
+

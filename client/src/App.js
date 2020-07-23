@@ -5,6 +5,7 @@ import API from "./utils/API";
 import Home from './pages/Home';
 import TripPlans from './pages/TripPlans';
 import TripPlan from './pages/TripPlan';
+import Login from './pages/Login';
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Notification from "./components/Notification";
@@ -13,25 +14,35 @@ import './App.css';
 
 
 class App extends Component {
+  constructor() {
+    super();
 
-  state = {
-    userId: '1', // This Id is temp
-    allTrips: [],
-    socketData: ''
+    this.state = {
+      userId: localStorage.getItem('user'), // This Id is temp
+      allTrips: [],
+      socketData: ''
+    }
   }
+  // state = {
+  //   userId: null, // This Id is temp
+  //   allTrips: [],
+  //   socketData: ''
+  // }
 
   socketURL =
     process.env.NODE_ENV === 'production'
       ? window.location.hostname
       : 'http://localhost:3001';
 
-  socket = io.connect(this.socketURL, { secure: true });
+  socket = io.connect(this.socketURL, {secure: true});
+
+  updateUser = (userId) => {
+    this.setState({
+      userId: userId
+    });
+  };
 
   componentDidMount() {
-    // this.socket.on("outgoing data", data => {
-    //   this.setState({socketData: data})
-    // })
-
     this.socket.on("incoming data", data => {
       this.setState({socketData: data})
 
@@ -79,11 +90,19 @@ class App extends Component {
                 />}
               />
 
-              <Route
-                exact
-                path="/trip-plans/:id"
-                render={() => <TripPlan allTrips={this.state.allTrips} />}
-              />
+            <Route
+              exact
+              path="/login"
+              render={() => {
+                return <Login updateUser={this.updateUser} />
+              }}
+            />
+
+            <Route
+              exact
+              path="/trip-plans/:id"
+              render={() => <TripPlan allTrips={this.state.allTrips} />}
+            />
 
               <Route component={NoMatch} />
             </Switch>
