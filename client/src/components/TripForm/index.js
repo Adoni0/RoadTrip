@@ -76,6 +76,7 @@ class TripForm extends Component {
               // onChange={this.handleAddStopPlaces}
               id={`stop${num}`}
               name={`stop${num}`}
+              initialValue={this.state.placesOfStops[num - 1]}
               placeholder="Enter your stop location."
             />
           </div>
@@ -146,6 +147,9 @@ class TripForm extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    // if(!this.state.origin || !this.state.destination){
+    //   alert("Please enter valid origin or destination.")
+    // }
 
     if (this.props.formType === 'new') {
       API.saveTrip({
@@ -243,6 +247,7 @@ class TripForm extends Component {
             onSelect={({ description: origin }) => { this.setState( { origin })}}
             id="origin"
             name="origin"
+            initialValue={this.state.origin}
             placeholder="Enter your starting point."
           />
         </div>
@@ -263,6 +268,7 @@ class TripForm extends Component {
             onSelect={({ description: destination }) => { this.setState( { destination })}}
             id="destination"
             name="destination"
+            initialValue={this.state.destination}
             placeholder="Enter your destination."
           />
         </div>
@@ -286,7 +292,7 @@ class TripForm extends Component {
           iconName="cash"
         />
         <FormBtn
-          disabled={!this.state.tripName}
+          disabled={!this.state.origin || !this.state.destination || !this.state.tripName}
           onClick={this.handleFormSubmit}
         >
           Submit
