@@ -15,7 +15,7 @@ module.exports = {
             params: {
                 location: req.params.location,
                 term: "restaurants",
-                limit: 5
+                limit: 6
             }
         }).then(({ data }) => {
             let { businesses } = data
