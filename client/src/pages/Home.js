@@ -28,17 +28,6 @@ class Home extends Component {
           <Section>
             <TripForm {...this.props} formType='new' socket={this.props.socket} />
           </Section>
-
-          <Section>
-            <h2>Your Road Trip Plans List</h2>
-            <div className="trip-list-container-short">
-              <TripsList
-                {...this.props}
-                allTrips={this.props.allTrips}
-                loadTrips={this.props.loadTrips}
-              />
-            </div>
-          </Section>
         </Container>
       </>
     );
