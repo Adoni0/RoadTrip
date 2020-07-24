@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Section, Container } from "../components/Grid";
 import Gmaps from '../components/Gmaps/';
 import API from '../utils/API';
+import YelpBusinesses from '../components/Yelp/YelpBusinesses';
+import Car from "../components/Car";
 
 
 class TripPlan extends Component {
 
   state = {
+    tripName: '',
     origin: '',
     destination: '',
     stops: [],
@@ -19,6 +22,7 @@ class TripPlan extends Component {
       .then(res => {
 
         this.setState({
+          tripName: res.data.tripName,
           origin: res.data.origin,
           destination: res.data.destination,
           stops: res.data.stops.placesOfStops,
@@ -41,16 +45,25 @@ class TripPlan extends Component {
 
   render() {
     return (
-      <Container>
-        <h1>Trip Plan Result Page</h1>
-        <Gmaps
-          inputOrigin={this.state.origin}
-          inputDestination={this.state.destination}
-          allTrips={this.props.allTrips}
-          stops={this.state.stops}
-          budget={this.state.budget}
-        />
-      </Container>
+      <>
+        <Car top={8} width={10} />
+        <Container>
+          <h1 className="heading-top small">
+            {this.state.tripName}
+          </h1>
+          <Gmaps
+            inputOrigin={this.state.origin}
+            inputDestination={this.state.destination}
+            allTrips={this.props.allTrips}
+            stops={this.state.stops}
+            budget={this.state.budget}
+          />
+
+          <Section>
+            <YelpBusinesses />
+          </Section>
+        </Container>
+      </>
     );
   }
 }

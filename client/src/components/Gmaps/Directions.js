@@ -1,18 +1,19 @@
 /* global google */
-import React from "react";
+import React from 'react';
 import {
   withGoogleMap,
   GoogleMap,
   DirectionsRenderer
-} from "react-google-maps";
-import DistanceDisplay from '../DistanceDisplay';
+} from 'react-google-maps';
+import DistanceDisplay from './DistanceDisplay';
+import './style.css';
 
 
 class Directions extends React.Component {
   state = {
     directions: null,
     origin: '',
-    destination: "",
+    destination: '',
     distance: '',
     duration: ''
   };
@@ -107,20 +108,20 @@ class Directions extends React.Component {
         <DirectionsRenderer
           directions={this.state.directions}
         />
-        <DistanceDisplay
-          // inputDestination={this.state.destination}
-          // inputOrigin={this.storigin}
-          distance={this.state.distance}
-          duration={this.state.duration}
-        />
       </GoogleMap>
-
     ));
 
     return (
-      <div>
+      <div className="gmap-container">
+        <DistanceDisplay
+          origin={this.props.inputOrigin}
+          destination={this.props.inputDestination}
+          stops={this.props.stops}
+          distance={this.state.distance}
+          duration={this.state.duration}
+        />
         <GoogleMapExample
-          containerElement={<div style={{ height: `700px`, width: "70%" }} />}
+          containerElement={<div className="gmap-map-container" />}
           mapElement={<div style={{ height: `100%` }} />}
         />
       </div>

@@ -1,0 +1,82 @@
+.stop-container:not(:first-of-type) {
+    margin-top: 2rem;
+}
+
+.stop-container:not(:last-of-type) {
+    padding-bottom: 2rem;
+    border-bottom: .4rem dotted var(--color-red);
+}
+
+.heading-stops {
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.heading-stops .main {
+    border-bottom: 3px solid var(--color-red);
+}
+
+.heading-stops .sub {
+    margin-right: .5rem;
+    font-size: 1.5rem;
+    color: var(--color-grey3);
+}
+
+.heading-stops ion-icon {
+    color: var(--color-red-dark);
+}
+
+.business-image-container {
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-grey-light);
+}
+
+.business-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.business p {
+    margin: 0 0 .5rem 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.business .subtext {
+    margin-right: .5rem;
+    color: var(--color-grey3);
+    font-size: 1rem;
+    text-transform: capitalize;
+}
+
+.business-name {
+    margin: .5rem 0 .8rem 0;
+    font-size: 1.5rem;
+}
+
+.business-name a {
+    text-decoration: underline;
+}
+
+a.link-stop {
+    color: var(--color-red-dark);
+}
+
+a.link-stop:hover {
+    color: var(--color-red-light);
+}
+
+@media screen and (min-width: 601px) {
+    .heading-stops {
+        font-size: 2.5rem;
+        justify-content: center;
+    }
+}

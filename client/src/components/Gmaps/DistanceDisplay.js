@@ -1,42 +1,44 @@
 import React from 'react';
-import YelpBusinesses from './Yelp/YelpBusinesses';
+import './style.css';
+
 
 class DistanceDisplay extends React.Component {
     constructor(props) {
         super(props);
-
-        this.divStyle = {
-            // float: 'right'
-            position: 'relative',
-            left: 700,
-            bottom: 700
-        }
-
-        this.cardStyle = {
-            width: 200
-        }
-
-        this.rowStyle = {
-            width: 450
-        }
-
     }
 
     render() {
         return (
-            <div style={this.divStyle}>
-
-                <h3> Results</h3>
-                <p>Distance: {this.props.distance}</p>
-                <p>Duration: {this.props.duration}</p>
-                <YelpBusinesses />
-
+            <div className="gmap-text-container">
+                <p>
+                    <span className="label">Start</span>
+                    {this.props.origin}
+                </p>
+                <ul className="gmap-text-stops">
+                    {this.props.stops.map(stop =>
+                        <li key={stop}>
+                            <ion-icon name="pin" />
+                            {stop}
+                        </li>
+                    )}
+                </ul>
+                <p>
+                    <span className="label">Dest</span>
+                    {this.props.destination}
+                </p>
+                <ul className="gmap-text-data">
+                    <li>
+                        <span className="subtext">Duration</span>
+                        {this.props.duration}
+                    </li>
+                    <li>
+                        <span className="subtext">Distance</span>
+                        {this.props.distance}
+                    </li>
+                </ul>
             </div>
-
         );
     }
-
-
 }
 
 export default DistanceDisplay;

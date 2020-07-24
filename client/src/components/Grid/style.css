@@ -15,7 +15,7 @@
 .section {
     width: 100%;
     padding: 3rem;
-    background: rgba(255, 255, 255, .8);
+    background: var(--bg-transparent-white);
     border-radius: .2rem;
     border: 1px solid var(--color-grey-light);
     box-shadow: 0 0 5px rgba(0, 0, 0, .3);

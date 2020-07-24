@@ -1,8 +1,32 @@
-.heading-home {
+.container-login {
+    height: calc(100vh - 15rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-login .section {
+    max-width: 70rem;
+}
+
+.form-login {
+    margin: 3rem 0;
+}
+
+.heading-top {
     margin: 10rem auto;
     text-align: center;
     font-size: 5rem;
     text-shadow: 0 0 6px var(--color-white);
+    position: relative;
+    font-weight: bold;
+}
+
+.heading-top.small {
+    margin: 1rem auto 2.5rem;
+    font-size: 3rem;
+    color: var(--color-white);
+    text-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
 .trip-list-container-short {
@@ -12,4 +36,11 @@
     overflow-y: scroll;
     border: 1px solid var(--color-grey-light);
     border-radius: .5rem;
+}
+
+
+@media screen and (min-width: 601px) {
+    .form-login {
+        margin: 3rem;
+    }
 }

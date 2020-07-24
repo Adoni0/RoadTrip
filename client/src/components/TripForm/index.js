@@ -131,9 +131,6 @@ class TripForm extends Component {
         }
       })
 
-      console.log('users: ');
-      console.log(usersArr);
-
       this.props.socket.emit("incoming data", {
         tripData: {
           tripName: this.state.tripName,

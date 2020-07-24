@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Section, Container } from "../components/Grid";
-import TripsList from "../components/TripsList";
-import TripForm from "../components/TripForm";
-import "../components/List/style.css";
-import "./style.css";
+import { Section, Container } from '../components/Grid';
+import TripsList from '../components/TripsList';
+import TripForm from '../components/TripForm';
+import Car from '../components/Car';
+import '../components/List/style.css';
+import './style.css';
 
 
 class Home extends Component {
@@ -16,24 +17,19 @@ class Home extends Component {
 
   render() {
     return (
-      <Container>
-        <h1 className="heading-home">Plan your road trip!</h1>
-        <Section>
-          {/*<h2>Fill out your road trip information!!</h2>*/}
-          <TripForm {...this.props} formType='new' socket={this.props.socket} />
-        </Section>
+      <>
+        <Car top={18} width={12} />
+        <Container>
+          <h1 className="heading-top">
+            Plan your road trip!
 
-        <Section>
-          <h2>Your Road Trip Plans List</h2>
-          <div className="trip-list-container-short">
-            <TripsList
-              {...this.props}
-              allTrips={this.props.allTrips}
-              loadTrips={this.props.loadTrips}
-            />
-          </div>
-        </Section>
-      </Container>
+          </h1>
+
+          <Section>
+            <TripForm {...this.props} formType='new' socket={this.props.socket} />
+          </Section>
+        </Container>
+      </>
     );
   }
 }
